@@ -1,21 +1,21 @@
 ASHFALL — CONTAINMENT PROTOCOL
 
-    When the ash came down, they walked.
+ When the ash came down, they walked.
 
-A survival horror shooter in a single HTML file. No install. No launcher.Open it and you are already past the containment line.
+A survival horror shooter in a single HTML file. No install. No launcher. Open it and you are already past the containment line.
 
-▶ PLAY NOW: sillybloxy3.github.io/game.html
+	▶ PLAY NOW: sillybloxy3.github.io/game.html
 THE FILE
 
-Everything — engine, audio, saves — lives in one file. It runs offline,in any browser, forever. Your record follows you if you sign in.
+Everything — engine, audio, saves — lives in one file. It runs offline, in any browser, forever. Your record follows you if you sign in.
 	
-Sectors	175
-Alphas	17 catalogued · 1 rumor
-Weapons	22
-Modes	Campaign · Endless · Sandbox · Bosses Only
+Sectors: 175
+Alphas: 17 catalogued · 1 rumor
+Weapons: 22
+Modes: Campaign · Endless · Sandbox · Bosses Only
 CONTROLS
-Key	Action
-WASD / Arrows	Move
+Key / Action
+WASD / Arrows / Move
 Mouse	Aim
 LMB	Fire
 SPACE / RMB	Dash
