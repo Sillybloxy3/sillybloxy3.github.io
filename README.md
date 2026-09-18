@@ -1,51 +1,71 @@
-ASHFALL — CONTAINMENT PROTOCOL
+# ASHFALL — CONTAINMENT PROTOCOL
 
- When the ash came down, they walked.
+> *When the ash came down, they walked.*
 
-A survival horror shooter in a single HTML file. No install. No launcher. Open it and you are already past the containment line.
+A single-file survival horror shooter. No install. No launcher.
+The file opens, and you are already past the line.
 
-	▶ PLAY NOW: sillybloxy3.github.io/game.html
-THE FILE
+**PLAY:(https://sillybloxy3.github.io/game.html)**
 
-Everything — engine, audio, saves — lives in one file. It runs offline, in any browser, forever. Your record follows you if you sign in.
-	
-Sectors: 175
-Alphas: 17 catalogued · 1 rumor
-Weapons: 22
-Modes: Campaign · Endless · Sandbox · Bosses Only
-CONTROLS
-Key / Action
-WASD / Arrows / Move
-Mouse	Aim
-LMB	Fire
-SPACE / RMB	Dash
-R	Reload
-G	Throw laptop
-1–0 / Q / E / Scroll	Weapons
-SHIFT	Sprint
-ESC	Pause
+---
 
-Touch controls are built in. The stick is analog. Use it.
-FIELD NOTES
+## THE RECORD
 
-    Every fifth sector is a hold-out — survive 60 seconds.
-    Every tenth hides an Alpha. The dossier only names two.
-    The sky sometimes turns. Rain slows you. Fog eats your sightlines.
-    Explosives are honest. Your own rocket will hurt you.
-    Everyone carries one laptop. Five damage. Eight-second stun. On anything.
-    Health carries over between sectors. Patch up before you push.
+| | |
+|---|---|
+| SECTORS | 175 |
+| ALPHAS | 17 catalogued — 1 rumor |
+| WEAPONS | 22 |
+| MODES | Campaign — Endless — Sandbox — Bosses Only |
+| ENGINE | Single HTML file, runs offline, forever |
 
-GET THE FILE
+## CONTROLS
 
-Open the game, or download game.html from this repository anddouble-click it. It will never ask you for anything else.
-CREDITS
+| KEY | ACTION |
+|---|---|
+| WASD / Arrows | Move |
+| Mouse | Aim |
+| LMB | Fire |
+| SPACE / RMB | Dash |
+| R | Reload |
+| G | Throw laptop |
+| 1–0 / Q / E / Scroll | Weapons |
+| SHIFT | Sprint |
+| ESC | Pause |
 
-CALEB THIVIERGE — design, code, sound, everything
+Built-in touch controls. The stick is analog. Use it.
 
-Special thanks —Caden Commanda for fundraising, and Ryder Chief for beta testingthe game. Emmit Babin for giving me the whole idea.And lastly, thank YOU for playing.
-REPORTING A BREACH
+## WHAT WE CAN TELL YOU
 
-Found a bug? Report the sector number and what happened.Every crash, every clipping Z, every weird thing goes on the record.
-LICENSE
+- Every fifth sector is a hold-out. Survive 60 seconds.
+- Every tenth wakes an Alpha. The file names two. The rest you will meet.
+- The sky turns sometimes. Rain drags. Fog blinds.
+- Explosives are honest — including yours.
+- One laptop per operative. Five damage. Eight-second stun. On anything.
+- Health carries over. Patch up before you push.
 
-Released under the GNU General Public License v3.0.Play it. Share it. Build on it — openly, and with credit.
+Everything else stays in the file. You will find it, or it will find you.
+
+## HOW TO GET IT
+
+Play in your browser at the link above — or download `game.html` from
+this repository and double-click it. It runs anywhere, offline, forever.
+
+## CREDITS
+
+**CALEB THIVIERGE** — design, code, sound, everything
+
+Special thanks —
+**Caden Commanda** for fundraising, and **Ryder Chief** for beta
+testing the game. **Emmit Babin** for giving me the whole idea.
+And lastly — thank YOU for playing.
+
+## REPORT A BREACH
+
+Bugs go on the record: the sector number, and what happened.
+Every crash, every clipping Z, every weird thing counts.
+
+## LICENSE
+
+GNU General Public License v3.0 — play it, share it, build on it
+openly and with credit.
