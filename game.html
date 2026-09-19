@@ -9,14 +9,14 @@
 <script src="https://cdn.jsdelivr.net/npm/appwrite@27.0.0"></script>
 <style>
 :root{
---bg:#0a100c;--pan:#101812;--pan2:#0c120e;--ln:#26402e;--ln2:#3b5e46;
---tx:#d5e6da;--tx2:#8ab8a0;--dim:#5f7e6e;--dim2:#455e50;
---ac:#46c878;--ac2:#9ff0b8;--rd:#e05c54;--gd:#b8e07a;
---sqg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='8'%3E%3Cpath d='M2 5 Q12 1 22 5 T42 5 T62 5 T82 5' fill='none' stroke='%2346c878' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");}
+--bg:#0d0b09;--pan:#141110;--pan2:#100e0c;--ln:#2a241d;--ln2:#46392a;
+--tx:#ece5d8;--tx2:#a89e8c;--dim:#6b6252;--dim2:#4f4638;
+--ac:#e8863a;--ac2:#ffb15e;--rd:#d95f4a;--gd:#e8c268;
+--sqg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='8'%3E%3Cpath d='M2 5 Q12 1 22 5 T42 5 T62 5 T82 5' fill='none' stroke='%23e8863a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:'Chakra Petch',sans-serif;font-size:13.5px;line-height:1.5}
 body::before{content:'';position:fixed;inset:0;z-index:-1;background:
-radial-gradient(1000px 600px at 70% -10%,rgba(70,200,120,.05),transparent 60%),
+radial-gradient(1000px 600px at 70% -10%,rgba(232,134,58,.05),transparent 60%),
 radial-gradient(800px 500px at 5% 110%,rgba(60,140,100,.05),transparent 60%),var(--bg)}
 body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
 background:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px),
@@ -44,15 +44,15 @@ background:rgba(4,8,6,.92);overflow:auto;padding:14px 10px calc(14px + env(safe-
 .card{position:relative;width:min(640px,96vw);margin:auto;padding:22px 20px;text-align:center;
 background:var(--pan);border:1px solid var(--ln);border-radius:4px;
 box-shadow:0 20px 50px rgba(0,0,0,.55),inset 0 0 60px rgba(0,0,0,.25);animation:slam .22s ease-out}
-.card::before{content:'';position:absolute;inset:0;border:1px solid rgba(70,200,120,.08);pointer-events:none;border-radius:4px}
+.card::before{content:'';position:absolute;inset:0;border:1px solid rgba(232,134,58,.08);pointer-events:none;border-radius:4px}
 .card::after{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;border-radius:2px;
-background:linear-gradient(90deg,transparent,rgba(70,200,120,.55),transparent)}
+background:linear-gradient(90deg,transparent,rgba(232,134,58,.55),transparent)}
 @keyframes slam{from{opacity:0;transform:translateY(-12px)}}
 .kick{font-size:10px;font-weight:600;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
-.betachip{display:inline-block;font-weight:700;font-size:9px;letter-spacing:.24em;color:#07160c;background:var(--gd);border-radius:2px;padding:2px 8px;vertical-align:2px;margin-left:8px;text-transform:uppercase;animation:chipGlow 3s ease-in-out infinite}
+.betachip{display:inline-block;font-weight:700;font-size:9px;letter-spacing:.24em;color:#14100b;background:var(--gd);border-radius:2px;padding:2px 8px;vertical-align:2px;margin-left:8px;text-transform:uppercase;animation:chipGlow 3s ease-in-out infinite}
 @keyframes chipGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
 .title{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(40px,8vw,68px);letter-spacing:.12em;line-height:1;
-color:#e2f4e8;text-shadow:0 0 26px rgba(70,200,120,.3),0 0 2px rgba(159,240,184,.4),0 2px 0 #000;
+color:#e2f4e8;text-shadow:0 0 26px rgba(232,134,58,.3),0 0 2px rgba(159,240,184,.4),0 2px 0 #000;
 background:var(--sqg) no-repeat bottom center;background-size:190px 8px;padding-bottom:13px}
 .sub{font-size:10px;font-weight:600;letter-spacing:.4em;color:var(--ac2);margin:10px 0 0;text-transform:uppercase}
 .tagline{font-size:9px;font-weight:600;letter-spacing:.3em;color:var(--dim);margin-top:7px;text-transform:uppercase}
@@ -71,7 +71,7 @@ background:repeating-linear-gradient(-45deg,var(--gd) 0 9px,transparent 9px 18px
 .mchip:hover{border-color:var(--ln2);transform:translateY(-1px)}
 .mchip em{display:block;font-style:normal;font-size:8px;font-weight:700;letter-spacing:.24em;color:var(--dim2);text-transform:uppercase}
 .mchip b{display:block;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.06em;color:var(--gd);margin-top:1px}
-@keyframes pg{0%,100%{box-shadow:0 0 0 rgba(70,200,120,0)}50%{box-shadow:0 0 18px rgba(70,200,120,.4)}}
+@keyframes pg{0%,100%{box-shadow:0 0 0 rgba(232,134,58,0)}50%{box-shadow:0 0 18px rgba(232,134,58,.4)}}
 .mgrid .mbtn.play{animation:pg 2.6s ease-in-out infinite}
 .build{font-size:9px;font-weight:700;letter-spacing:.26em;color:var(--dim2);margin-top:12px;text-transform:uppercase}
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px 9px;max-width:480px;margin:0 auto}
@@ -84,10 +84,10 @@ color:var(--tx2);transition:all .13s;position:relative}
 .mbtn:hover{border-color:var(--ac);color:var(--ac2);background:linear-gradient(180deg,#18231c,#101712);padding-left:16px}
 .mbtn:hover::before{opacity:.9}
 .mbtn:active{transform:translateY(1px)}
-.mbtn.play{font-size:15px;color:#07160c;border:1px solid #c0f0d0;
-background:linear-gradient(180deg,#8fe0ac,#219668);text-shadow:0 1px 0 rgba(255,255,255,.3)}
+.mbtn.play{font-size:15px;color:#14100b;border:1px solid #ffd8a8;
+background:linear-gradient(180deg,#ffb15e,#c96a24);text-shadow:0 1px 0 rgba(255,255,255,.3)}
 .mbtn.play::before{display:none}
-.mbtn.play:hover{filter:brightness(1.07);border-color:#d8f8e4;padding-left:8px}
+.mbtn.play:hover{filter:brightness(1.07);border-color:#ffd8a8;padding-left:8px}
 .small{font-size:11px;color:var(--dim);letter-spacing:.05em;margin-top:11px;line-height:1.75}
 .small b{color:var(--tx)}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 2px;
@@ -96,11 +96,11 @@ border-bottom:1px solid #141c16;text-align:left;font-size:12px;letter-spacing:.0
 .tog{min-width:80px;padding:5px 12px;border:1px solid var(--ln);border-radius:3px;background:var(--pan2);
 color:var(--dim);font-weight:700;font-size:10px;letter-spacing:.14em;transition:all .13s}
 .tog:hover{border-color:var(--ln2);color:var(--tx2)}
-.tog.on{border-color:var(--ac);color:var(--ac2);background:rgba(70,200,120,.08)}
+.tog.on{border-color:var(--ac);color:var(--ac2);background:rgba(232,134,58,.08)}
 .seg{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--ln);border-radius:3px;background:var(--pan2);flex-wrap:wrap;justify-content:flex-end}
 .seg button{border:none;background:transparent;color:var(--dim);font-weight:600;font-size:10px;letter-spacing:.1em;padding:5px 10px;border-radius:2px;transition:all .12s}
 .seg button:hover{color:var(--tx)}
-.seg button.on{color:#07160c;background:var(--ac)}
+.seg button.on{color:#14100b;background:var(--ac)}
 .modcard{display:flex;align-items:center;gap:14px;margin-bottom:9px;padding:13px 16px;text-align:left;
 border:1px solid var(--ln);border-left:3px solid var(--ac);border-radius:3px;background:var(--pan2)}
 .modcard .mi{flex:1;min-width:0}
@@ -121,7 +121,7 @@ font-weight:600;font-size:14px;color:var(--dim);transition:all .1s}
 .lv.boss::before{content:'x';position:absolute;top:0;left:4px;font-weight:700;font-size:10px;color:var(--rd)}
 .lv.boss.done{border-color:#2c483a}
 .lv.lock{opacity:.28;pointer-events:none}
-.lv.next{border-color:var(--ac2);color:var(--ac2);box-shadow:inset 0 0 0 1px rgba(70,200,120,.35)}
+.lv.next{border-color:var(--ac2);color:var(--ac2);box-shadow:inset 0 0 0 1px rgba(232,134,58,.35)}
 .tabs{display:flex;gap:2px;justify-content:center;margin:12px 0 8px;flex-wrap:wrap;border-bottom:1px solid var(--ln)}
 .tabs button{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.2em;padding:7px 15px;color:var(--dim);
 border-bottom:2px solid transparent;text-transform:uppercase;transition:all .13s}
@@ -136,7 +136,7 @@ border:1px solid var(--ln);border-left:3px solid var(--ln);border-radius:3px;bac
 .srow .info{flex:1;min-width:0}
 .srow .p{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;letter-spacing:.06em;color:var(--gd);white-space:nowrap}
 .srow .buy{border:1px solid var(--ln);color:var(--ac2);font-family:'Oswald',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.16em;padding:7px 12px;border-radius:2px;white-space:nowrap;transition:all .12s;text-transform:uppercase}
-.srow .buy:hover{border-color:var(--ac);color:var(--ac);background:rgba(70,200,120,.07)}
+.srow .buy:hover{border-color:var(--ac);color:var(--ac);background:rgba(232,134,58,.07)}
 .srow.cant{opacity:.4}.srow.cant .buy{pointer-events:none;color:var(--dim);border-color:var(--ln)}
 .srow.own{border-color:#232c26}.srow.own .buy{color:var(--dim);border-color:var(--ln);pointer-events:none}
 .srow.joke{border-style:dashed}
@@ -179,7 +179,7 @@ backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);transition:border-co
 #hud.lowhp .hudTL{border-color:#7a2620;animation:vitPulse 1s ease-in-out infinite}
 @keyframes vitPulse{0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.45)}50%{box-shadow:0 4px 18px rgba(160,30,20,.35)}}
 .vhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:7px}
-.rk{font-size:9px;font-weight:700;letter-spacing:.2em;color:#07160c;background:var(--ac);border-radius:2px;padding:2px 7px;white-space:nowrap}
+.rk{font-size:9px;font-weight:700;letter-spacing:.2em;color:#14100b;background:var(--ac);border-radius:2px;padding:2px 7px;white-space:nowrap}
 .rk b{font-family:'Oswald',sans-serif;font-weight:600;font-size:12px}
 #hpT{font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--tx2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar{position:relative;height:10px;margin-bottom:6px;background:#050a06;border:1px solid var(--ln);overflow:hidden;border-radius:2px}
@@ -240,8 +240,8 @@ display:flex;gap:5px;pointer-events:none;flex-wrap:wrap;justify-content:center;m
 font-size:10.5px;font-weight:600;letter-spacing:.06em;color:var(--dim);white-space:nowrap;transition:all .12s;
 backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
 .wchip b{color:var(--dim2);margin-right:5px;font-family:'JetBrains Mono',monospace;font-size:9px;border:1px solid var(--ln);border-radius:2px;padding:0 4px}
-.wchip.on{border-color:var(--ac);color:var(--ac2);background:rgba(70,200,120,.1);box-shadow:0 0 10px rgba(70,200,120,.15)}
-.wchip.on b{color:#07160c;background:var(--ac);border-color:var(--ac)}
+.wchip.on{border-color:var(--ac);color:var(--ac2);background:rgba(232,134,58,.1);box-shadow:0 0 10px rgba(232,134,58,.15)}
+.wchip.on b{color:#14100b;background:var(--ac);border-color:var(--ac)}
 .wchip.on::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:var(--ac);border-radius:2px}
 #subs{position:absolute;bottom:calc(78px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
 max-width:82vw;text-align:center;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:#e6f4ec;
@@ -253,7 +253,7 @@ background:rgba(5,10,7,.82);border:1px solid var(--ln);border-radius:3px;padding
 border:1px solid rgba(90,140,110,.55);color:var(--ac2);font-family:'Oswald',sans-serif;font-weight:600;
 font-size:12px;letter-spacing:.08em;background:radial-gradient(circle at 35% 30%,rgba(24,38,28,.8),rgba(8,14,10,.75));
 transition:transform .08s,border-color .12s;text-transform:uppercase;box-shadow:0 3px 10px rgba(0,0,0,.4)}
-.tb.active{transform:scale(.9);border-color:var(--ac);background:radial-gradient(circle at 35% 30%,rgba(70,200,120,.25),rgba(8,14,10,.8))}
+.tb.active{transform:scale(.9);border-color:var(--ac);background:radial-gradient(circle at 35% 30%,rgba(232,134,58,.25),rgba(8,14,10,.8))}
 #Fire{right:calc(20px + env(safe-area-inset-right));bottom:108px;width:82px;height:82px;font-size:14px}
 #Rel{right:calc(114px + env(safe-area-inset-right));bottom:30px}
 #Dash{right:calc(26px + env(safe-area-inset-right));bottom:26px}
@@ -281,10 +281,10 @@ padding:7px 15px;font-size:12px;font-weight:600;letter-spacing:.08em;animation:t
 .fin span{font-size:8.5px;font-weight:700;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
 .medls{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0}
 .medl{border:1px solid var(--ln);border-radius:2px;color:var(--dim);font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 10px}
-.medl.got{border-color:var(--ac);color:var(--ac2);background:rgba(70,200,120,.06)}
+.medl.got{border-color:var(--ac);color:var(--ac2);background:rgba(232,134,58,.06)}
 .achg{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:560px}
 .achi{border:1px solid var(--ln);border-radius:3px;padding:8px 11px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--dim)}
-.achi.got{border-color:var(--ln2);color:var(--ac2);background:rgba(70,200,120,.05)}
+.achi.got{border-color:var(--ln2);color:var(--ac2);background:rgba(232,134,58,.05)}
 .achi small{display:block;color:var(--dim2);font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-top:2px}
 .achi.got small{color:var(--dim)}
 .howline{text-align:left;font-size:12.5px;color:var(--tx2);line-height:1.75;max-width:480px;margin:0 auto;
@@ -726,7 +726,7 @@ function defSave(){return{ts:0,prog:1,done:{},cash:300,xp:0,plvl:1,weapons:['pis
 upg:{dmg:0,rate:0,hp:0,spd:0,armor:0,crit:0},perks:{},ach:{},kills:0,diff:'normal',
 set:{bri:100,shake:1,dmg:1,qual:'high',vibe:1,lefty:0,
 autoRel:1,hpBars:1,hitMk:1,cross:'cross',objTrack:1,particles:1,flash:1,perf:0,reduced:0,
-theme:'green',customCol:'#46c878',light:'high',
+theme:'green',customCol:'#e8863a',light:'high',
 master:.8,music:.45,sfx:.8,amb:.7,weap:1,zomb:1,uiS:1,muteBg:1,
 sens:1,csens:1,stick:1,bOp:.85,
 keymap:{up:'w',down:'s',left:'a',right:'d',reload:'r',dash:' ',ult:'f',brick:'g',swapL:'q',swapR:'e'},
@@ -846,7 +846,7 @@ else save();}
 setInterval(flushCloud,5000);
 /* ==================== THEMES ==================== */
 const THEMES={
-green:{bg:'#0a100c',pan:'#101812',pan2:'#0c120e',ln:'#26402e',ln2:'#3b5e46',tx:'#d5e6da',tx2:'#8ab8a0',dim:'#5f7e6e',dim2:'#455e50',ac:'#46c878',ac2:'#9ff0b8',rd:'#e05c54',gd:'#b8e07a'},
+green:{bg:'#0d0b09',pan:'#141110',pan2:'#100e0c',ln:'#2a241d',ln2:'#46392a',tx:'#ece5d8',tx2:'#a89e8c',dim:'#6b6252',dim2:'#4f4638',ac:'#e8863a',ac2:'#ffb15e',rd:'#d95f4a',gd:'#e8c268'},
 dark:{bg:'#060a07',pan:'#0a120c',pan2:'#070d09',ln:'#1e3226',ln2:'#2e4a38',tx:'#c2d4c8',tx2:'#7aa08c',dim:'#4e6a5c',dim2:'#395044',ac:'#2e9e56',ac2:'#7ecf9c',rd:'#c05048',gd:'#8ccf9a'},
 custom:{bg:'#0a0c10',pan:'#10151c',pan2:'#0c1016',ln:'#26303e',ln2:'#3b4a5e',tx:'#d5dde6',tx2:'#8aa8b8',dim:'#5f7e6e',dim2:'#45505e',ac:'#46c878',ac2:'#a8e6f5',rd:'#e05c54',gd:'#e8c268'}};
 const CUR={ac:'#46c878',bg:'#0a100c'};
@@ -1144,46 +1144,46 @@ if(SFX.CH.w){SFX.CH.w.gain.value=SET.weap;SFX.CH.z.gain.value=SET.zomb;SFX.CH.u.
 const WEAP={
 pistol:{n:'P-11 SIDEARM',dmg:26,rate:.32,mag:12,rel:1,spread:.05,n2:0,bspd:920,crit:.08,price:0,k:'pistol',len:14,
 desc:'Standard issue. Light, honest, always there — like a friend who never lends you money.'},
-smg:{n:'VX-9 SMG',dmg:13,rate:.09,mag:32,rel:1.3,spread:.14,n2:0,bspd:950,crit:.05,price:600,k:'smg',len:17,
+smg:{n:'VX-9 SMG',dmg:13,rate:.09,mag:32,rel:1.3,spread:.14,n2:0,bspd:950,crit:.05,price:750,k:'smg',len:17,
 desc:'A hose. Aim is a suggestion; volume is a strategy.'},
-magnum:{n:'.44 MAGNUM',dmg:72,rate:.55,mag:6,rel:1.7,spread:.02,n2:0,bspd:1050,crit:.22,price:750,k:'magnum',len:15,
+magnum:{n:'.44 MAGNUM',dmg:72,rate:.55,mag:6,rel:1.7,spread:.02,n2:0,bspd:1050,crit:.22,price:940,k:'magnum',len:15,
 desc:'One very heavy answer per question. Asks nothing back.'},
-shotgun:{n:'S-12 BREACHER',dmg:12,rate:.85,mag:6,rel:1.6,spread:.3,n2:7,bspd:800,crit:.06,price:900,k:'shotgun',len:21,
+shotgun:{n:'S-12 BREACHER',dmg:12,rate:.85,mag:6,rel:1.6,spread:.3,n2:7,bspd:800,crit:.06,price:1125,k:'shotgun',len:21,
 desc:'Seven pellets of close-proximity negotiation. Best served at arm\u2019s length.'},
-dbl:{n:'DB SAWED-OFF',dmg:9,rate:.5,mag:2,rel:1.9,spread:.42,n2:12,bspd:760,crit:.05,price:1100,k:'dbl',len:18,
+dbl:{n:'DB SAWED-OFF',dmg:9,rate:.5,mag:2,rel:1.9,spread:.42,n2:12,bspd:760,crit:.05,price:1375,k:'dbl',len:18,
 desc:'Two barrels, zero patience. Reloads like it\u2019s judging you.'},
-rifle:{n:'M4 CARBINE',dmg:46,rate:.17,mag:24,rel:1.5,spread:.055,n2:0,bspd:1050,crit:.1,price:1400,k:'rifle',len:22,
+rifle:{n:'M4 CARBINE',dmg:46,rate:.17,mag:24,rel:1.5,spread:.055,n2:0,bspd:1050,crit:.1,price:1750,k:'rifle',len:22,
 desc:'The reliable one. Boring on paper — alive because of it.'},
-battle:{n:'BR-7 BATTLE RIFLE',dmg:38,rate:.12,mag:20,rel:1.7,spread:.07,n2:0,bspd:1100,crit:.09,price:1800,k:'battle',len:23,
+battle:{n:'BR-7 BATTLE RIFLE',dmg:38,rate:.12,mag:20,rel:1.7,spread:.07,n2:0,bspd:1100,crit:.09,price:2250,k:'battle',len:23,
 desc:'Slow, heavy, honest. Every shot means it.'},
-sniper:{n:'LRS-1 MARKSMAN',dmg:135,rate:1.05,mag:5,rel:1.8,spread:.004,n2:0,bspd:1400,crit:.25,pierce:99,price:2200,k:'sniper',len:26,
+sniper:{n:'LRS-1 MARKSMAN',dmg:135,rate:1.05,mag:5,rel:1.8,spread:.004,n2:0,bspd:1400,crit:.25,pierce:99,price:2750,k:'sniper',len:26,
 desc:'One trigger pull, one obituary. Rounds punch clean through a line.'},
-minigun:{n:'HVY-60 SAW',dmg:11,rate:.05,mag:80,rel:2.6,spread:.19,n2:0,bspd:1000,crit:.04,price:3200,k:'minigun',len:24,
+minigun:{n:'HVY-60 SAW',dmg:11,rate:.05,mag:80,rel:2.6,spread:.19,n2:0,bspd:1000,crit:.04,price:4000,k:'minigun',len:24,
 desc:'A hundred-round argument you can hold. Ends conversations.'},
-finger:{n:'FINGER PISTOL',dmg:1,rate:.5,mag:1,rel:5,spread:0,n2:0,bspd:900,crit:0,price:100,k:'finger',len:6,blife:.2,joke:1,
+finger:{n:'FINGER PISTOL',dmg:1,rate:.5,mag:1,rel:5,spread:0,n2:0,bspd:900,crit:0,price:125,k:'finger',len:6,blife:.2,joke:1,
 desc:'\u201CBang.\u201D'}};
 const WORD=['pistol','smg','magnum','shotgun','dbl','rifle','battle','sniper','minigun'];
 const JokeK=['finger'];
-const REASONS=['Because you have $100.','Your other guns are too effective.','You looked at it for 3 seconds, so technically you need it.','The zombies deserve a chance.','It has 100% accuracy. What more could you possibly want?','It\u2019s technically ammunition-efficient.','Your finger was already there.','Limited-time offer! It has been here forever.','The salesman said it was good.','Refunds are unavailable because we already spent the money.','For collectors.','For scientists.','For people who make bad decisions.','It might become useful eventually.','Probably.','Because the RPG costs more.','It\u2019s cheaper than therapy.','Achievement requirement: Own something stupid.','We needed to fill this slot.','Don\u2019t ask.'];
+const REASONS=['Because you have $125.','Your other guns are too effective.','You looked at it for 3 seconds, so technically you need it.','The zombies deserve a chance.','It has 100% accuracy. What more could you possibly want?','It\u2019s technically ammunition-efficient.','Your finger was already there.','Limited-time offer! It has been here forever.','The salesman said it was good.','Refunds are unavailable because we already spent the money.','For collectors.','For scientists.','For people who make bad decisions.','It might become useful eventually.','Probably.','Because the RPG costs more.','It\u2019s cheaper than therapy.','Achievement requirement: Own something stupid.','We needed to fill this slot.','Don\u2019t ask.'];
 const BLACK={
-judge:{n:'JUDGE — .50 — BLACK',dmg:150,rate:.6,mag:7,rel:1.9,spread:.02,n2:0,bspd:1200,crit:.35,price:9000,k:'magnum',len:17},
-hell:{n:'HELLFIRE S-8 — BLACK',dmg:26,rate:.55,mag:8,rel:2.1,spread:.34,n2:10,bspd:820,crit:.07,price:10500,k:'dbl',len:24},
-storm:{n:'RGX-7 STORM — BLACK',dmg:32,rate:.045,mag:100,rel:3,spread:.13,n2:0,bspd:1050,crit:.06,price:12000,k:'minigun',len:27},
-arc:{n:'ARC-9 LONGSTRIKE — BLACK',dmg:280,rate:1.35,mag:4,rel:2.2,spread:.002,n2:0,bspd:1700,crit:.3,pierce:99,price:115000,k:'sniper',len:30}};
+judge:{n:'JUDGE — .50 — BLACK',dmg:150,rate:.6,mag:7,rel:1.9,spread:.02,n2:0,bspd:1200,crit:.35,price:11250,k:'magnum',len:17},
+hell:{n:'HELLFIRE S-8 — BLACK',dmg:26,rate:.55,mag:8,rel:2.1,spread:.34,n2:10,bspd:820,crit:.07,price:13125,k:'dbl',len:24},
+storm:{n:'RGX-7 STORM — BLACK',dmg:32,rate:.045,mag:100,rel:3,spread:.13,n2:0,bspd:1050,crit:.06,price:15000,k:'minigun',len:27},
+arc:{n:'ARC-9 LONGSTRIKE — BLACK',dmg:280,rate:1.35,mag:4,rel:2.2,spread:.002,n2:0,bspd:1700,crit:.3,pierce:99,price:143750,k:'sniper',len:30}};
 const BLACKK=['judge','hell','storm','arc'];
 const PROTO={
-rpg:{n:'RPG — HEAVY',dmg:1100,rate:2.222,mag:1,rel:2.8,spread:.05,n2:0,bspd:1600,crit:.1,price:28000,k:'rpg',len:29,rocket:1,
+rpg:{n:'RPG — HEAVY',dmg:1100,rate:2.222,mag:1,rel:2.8,spread:.05,n2:0,bspd:1600,crit:.1,price:35000,k:'rpg',len:29,rocket:1,
 blast:{r:240,dmg:850,knock:90},
 desc:'IMPACT — 1,100 dmg rocket detonates on contact (~6.5 m blast, extreme knockback). Blows walls, fences and reinforced windows clean out. Hurts you too.'},
-morph:{n:'MORPH-7 — PROTOTYPE',dmg:185,rate:.105,mag:48,rel:1.7,spread:.06,n2:0,bspd:1300,crit:.12,price:18000,k:'rifle',len:24,adapt:1,
+morph:{n:'MORPH-7 — PROTOTYPE',dmg:185,rate:.105,mag:48,rel:1.7,spread:.06,n2:0,bspd:1300,crit:.12,price:22500,k:'rifle',len:24,adapt:1,
 desc:'ADAPT — ammo re-tunes per target: negates armor, +bonus vs tanks, runners and Alphas.'},
-vant:{n:'VANTAGE — PROTOTYPE',dmg:520,rate:.714,mag:10,rel:2.8,spread:.008,n2:0,bspd:2000,crit:.25,pierce:8,price:22000,k:'sniper',len:30,
+vant:{n:'VANTAGE — PROTOTYPE',dmg:520,rate:.714,mag:10,rel:2.8,spread:.008,n2:0,bspd:2000,crit:.25,pierce:8,price:27500,k:'sniper',len:30,
 desc:'OVERPENETRATION — rail slugs punch through up to 8 infected, losing 25% per body.'},
-bbox:{n:'BLACKBOX — PROTOTYPE',dmg:115,rate:.555,mag:9,rel:2.6,spread:.28,n2:12,bspd:850,crit:.1,price:20000,k:'dbl',len:22,knock:46,
+bbox:{n:'BLACKBOX — PROTOTYPE',dmg:115,rate:.555,mag:9,rel:2.6,spread:.28,n2:12,bspd:850,crit:.1,price:25000,k:'dbl',len:22,knock:46,
 desc:'BREACH — 115x12 pellets with extreme knockback; impacts stagger entire groups.'},
-kor:{n:'K-OR — PROTOTYPE',dmg:165,rate:.133,mag:60,rel:2.1,verb:'RECHARGING',spread:.09,n2:0,bspd:1400,crit:.08,price:21000,k:'zap',len:23,arc:{n:3,r:240},
+kor:{n:'K-OR — PROTOTYPE',dmg:165,rate:.133,mag:60,rel:2.1,verb:'RECHARGING',spread:.09,n2:0,bspd:1400,crit:.08,price:26250,k:'zap',len:23,arc:{n:3,r:240},
 desc:'ARC — 60-round cell; bolts jump to 3 nearby infected. Recharges instead of reloading.'},
-light:{n:'LAST LIGHT — PROTOTYPE',dmg:750,rate:1.111,mag:6,rel:3.4,spread:.12,n2:0,bspd:1500,crit:.2,price:26000,k:'battle',len:28,
+light:{n:'LAST LIGHT — PROTOTYPE',dmg:750,rate:1.111,mag:6,rel:3.4,spread:.12,n2:0,bspd:1500,crit:.2,price:32500,k:'battle',len:28,
 blast:{r:150,dmg:400},final:{r:240,dmg:700},
 desc:'FINAL ROUND — every shell detonates; every THIRD shot erupts in a much larger blast. Blows walls out — and singes the shooter.'}};
 const PROTOK=['rpg','morph','vant','bbox','kor','light'];
@@ -1200,7 +1200,7 @@ const ALLW=[...WORD,...BLACKK,...PROTOK,...OMEGAK];
 const LASERS={
 blue:{n:'BLUE',c:'#41c7ff'},red:{n:'RED',c:'#ff453a'},green:{n:'GREEN',c:'#39ff6a'},
 yellow:{n:'YELLOW',c:'#ffd23e'},purple:{n:'PURPLE',c:'#b06aff'},orange:{n:'ORANGE',c:'#ff8a3d'}};
-const LASER_PRICE=250,MAGMOD_PRICE=400;
+const LASER_PRICE=290,MAGMOD_PRICE=460;
 const ZT={
 walker:{hp:30,sp:56,dmg:10,cash:12,xp:10,r:14,c:'#5a7a4a',broad:1,stride:42},
 runner:{hp:18,sp:132,dmg:7,cash:14,xp:12,r:11,c:'#8aa050',lean:1,fast:1,stride:44},
@@ -1220,20 +1220,20 @@ const MAPS=[
 {n:'CHECKPOINT ALPHA',road:'crossN',g:'#1e221c',o:'#3a442c',ob:'#4e5c3c'},
 {n:'THRESHOLD FACILITY',g:'#16201f',o:'#28403e',ob:'#365654'}];
 const PERKS={
-quickhands:{n:'SLICK MAGS',d:'Reload 25% faster',p:800},
-marathon:{n:'ENDURANCE',d:'+12% move speed',p:700},
-tough:{n:'HARDENED',d:'+30 max HP',p:900},
+quickhands:{n:'SLICK MAGS',d:'Reload 25% faster',p:920},
+marathon:{n:'ENDURANCE',d:'+12% move speed',p:805},
+tough:{n:'HARDENED',d:'+30 max HP',p:1030},
 deadeye:{n:'MARKSMAN',d:'+15% crit chance',p:1000},
-scavenger:{n:'SCROUNGER',d:'+20% credits from kills',p:900},
-medic:{n:'FIELD MEDIC',d:'Regenerate HP out of combat',p:850},
-adrenaline:{n:'ADRENALINE',d:'Dash cooldown -30%',p:950}};
+scavenger:{n:'SCROUNGER',d:'+20% credits from kills',p:1030},
+medic:{n:'FIELD MEDIC',d:'Regenerate HP out of combat',p:978},
+adrenaline:{n:'ADRENALINE',d:'Dash cooldown -30%',p:1039}};
 const UPG={
-dmg:{n:'DAMAGE',d:'+8% weapon damage / level',base:250},
-rate:{n:'FIRE RATE',d:'+7% fire rate / level',base:280},
-hp:{n:'MAX HP',d:'+25 max health / level',base:280},
-spd:{n:'SPEED',d:'+5% move speed / level',base:240},
-armor:{n:'ARMOR PLATING',d:'+25 armor / level',base:300},
-crit:{n:'CRIT CHANCE',d:'+3% crit / level',base:300}};
+dmg:{n:'DAMAGE',d:'+8% weapon damage / level',base:288},
+rate:{n:'FIRE RATE',d:'+7% fire rate / level',base:322},
+hp:{n:'MAX HP',d:'+25 max health / level',base:322},
+spd:{n:'SPEED',d:'+5% move speed / level',base:276},
+armor:{n:'ARMOR PLATING',d:'+25 armor / level',base:345},
+crit:{n:'CRIT CHANCE',d:'+3% crit / level',base:345}};
 const DIFFS={
 easy:{zhp:.7,zd:.6,zs:.9,cash:1.25,xp:1},
 normal:{zhp:1,zd:1,zs:1,cash:1,xp:1},
@@ -1666,7 +1666,7 @@ const st=stats();
 R.st=st;R.hpGhost=st.maxHp;
 R.P={x:WW/2,y:WH/2,r:13,hp:st.maxHp,maxHp:st.maxHp,armor:st.armorMax,ang:0,inv:0,
 fireCd:0,dashT:0,dashCd:0,ddx:0,ddy:0,reloading:0,relT:0,noHitT:0,muzzle:0,poisonT:0,
-weapons:MOD.sandbox?ALLW.slice():SV.weapons.slice(),
+weapons:MOD.sandbox?WORD.slice():SV.weapons.slice(),
 cur:MOD.sandbox?'rifle':SV.weapons[SV.weapons.length-1],ammo:{},
 ultCd:{},heat:0,heatHold:0,overclock:0,lightN:0,bricks:1};
 for(const w of R.P.weapons)R.P.ammo[w]=magOf(w);
@@ -1733,7 +1733,7 @@ if(s===0){x=md(40,WW-40);y=40;}else if(s===1){x=WW-40;y=rnd(40,WH-40);}
 else if(s===2){x=md(40,WW-40);y=WH-40;}else{x=40;y=md(40,WH-40);}
 tries++;}while(tries<30&&(d2({x,y},R.P)<380*380||inBuilding(x,y)));
 const D=R.D,T=ZT[type];
-const hpM=(1+(n-1)*.075+(n>50?(n-50)*.05:0)+(n>120?(n-120)*.04:0))*D.zhp;
+const hpM=(1+(n-1)*.075+(n>50?(n-50)*.05:0)+(n>120?(n-120)*.03:0))*D.zhp;
 const z={x,y,r:T.r,hp:T.hp*hpM,mhp:T.hp*hpM,sp:T.sp*D.zs*md(.9,1.1),dmg:T.dmg*D.zd,
 cash:Math.round(T.cash*(1+n*.02)),xp:T.xp*D.xp,c:zCol(T.c),kind:type,t:rnd(0,9),atk:0,hit:0,fuse:-1,walk:0,
 zigA:rnd(0,6),zig:!!T.zig,rng:!!T.rng,boom:!!T.boom,dead:false,ang:0,steer:0,stun:0,
@@ -1789,7 +1789,7 @@ function killZ(z,fromHaz){
 if(z.dead)return;z.dead=true;
 R.kills++;SV.kills++;
 if(fromHaz){R.hazKills++;if(R.hazKills>=10)award('sapper');}
-const c=Math.round(z.cash*R.st.cashMul);
+const c=Math.round(z.cash*R.st.cashMul*.85);
 SV.cash+=c;R.cashRun+=c;
 gainXP(z.xp);
 SFX.zzie();
@@ -1918,7 +1918,7 @@ function campaignWin(){
 R.won=true;R.over=true;ST='won';setCursor();
 SV.done[175]=true;
 if(!SV.token1){SV.token1=true;SV.omega++;toast('OMEGA TOKEN ACQUIRED','gold');}
-save();award('l175');checkAch();
+SV.done={175:true};SV.prog=1;SV.cash=300;SV.xp=0;SV.plvl=1; SV.weapons=['pistol'];SV.upg={dmg:0,rate:0,hp:0,spd:0,armor:0,crit:0}; SV.perks={};SV.laser=null;SV.mods={}; save();window.__acSync();award('l175');checkAch();
 setTimeout(()=>{MUSIC.setMood('menu');$('#campLv').textContent=SV.plvl;$('#campK').textContent=fmt(SV.kills);
  $$('.ov').forEach(o=>o.classList.remove('on'));$('#ovCamp').classList.add('on');showHud(false);},900);}
 function objComplete(){if(R.objDone||R.over)return;R.objDone=true;setTimeout(()=>levelWin(),700);}
@@ -1934,7 +1934,7 @@ if(n>=SV.prog)SV.prog=Math.min(175,n+1);}
 else{MOD.cur=n+1;
 if(MOD.endless)SV.ebest=Math.max(SV.ebest||0,n);
 if(MOD.bosses)SV.bbest=Math.max(SV.bbest||0,n);}
-const bonus=Math.round((60+n*12)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1));
+const bonus=Math.round((40+n*6)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1));
 SV.cash+=bonus;R.cashRun+=bonus;
 const xb=Math.round(n*8*DIFFS[SV.diff].xp);
 gainXP(xb);
@@ -2071,7 +2071,7 @@ if(z.dead)continue;
 const rr=z.r+10;
 if(d2(br,z)<rr*rr){
 hurtZ(z,5,Math.atan2(br.vy,br.vx),false);
-if(!z.dead)z.stun=8;
+if(!z.dead)z.stun=z.kind==='boss'?(z.boss===175?1:4):8;
 SFX.bonk();
 for(let i=0;i<8;i++){const a=rnd(0,6.28);
 R.parts.push({x:br.x,y:br.y,vx:Math.cos(a)*rnd(60,200),vy:Math.sin(a)*rnd(60,200),life:.4,c:'#a8b4c4',r:2});}
@@ -2152,7 +2152,7 @@ R.zoms=[];levelWin();return;}}
 R.spawnT-=dt;
 if(MOD.sandbox&&R.budget<15)R.budget+=30;
 if(R.spawnT<=0&&R.budget>0&&R.zoms.length<R.aliveCap){
-R.spawnT=Math.max(.25,1.1-R.n*.006);
+R.spawnT=Math.max(.3,1.1-R.n*.006);
 R.budget--;
 const pn=MOD.sandbox?45:R.n;
 if(R.info.isBoss&&R.bossCount<3+Math.floor(R.n/40)){R.bossCount++;
@@ -2775,7 +2775,7 @@ const sf=SET.shake===0?0:(SET.shake===1?.45:1);
 if(R.shk>0&&sf)ctx.translate(rnd(-R.shk,R.shk)*.5*sf,rnd(-R.shk,R.shk)*.5*sf);
 ctx.translate(-R.camX,-R.camY);
 ctx.drawImage(R.ground,0,0);
-ctx.strokeStyle='rgba(70,200,120,.1)';ctx.lineWidth=4;ctx.strokeRect(2,2,R.WW-4,R.WH-4);
+ctx.strokeStyle='rgba(232,134,58,.1)';ctx.lineWidth=4;ctx.strokeRect(2,2,R.WW-4,R.WH-4);
 for(const b of R.blocks){if(b.wall||b.fence)continue;
 ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.strokeRect(b.x,b.y,b.w,b.h);}
 drawBuildings();
@@ -2837,7 +2837,7 @@ ctx.fillRect(0,0,W,H);}
 if(R.flash>0&&SET.flash&&SET.flashing){ctx.fillStyle='rgba(255,240,200,'+clamp(R.flash*2.2,0,.1)+')';ctx.fillRect(0,0,W,H);}
 drawWeather();
 if(touchUsed&&ST==='play'){
-for(const[j2,cc]of[[mT,'rgba(70,200,120,'],[aT,'rgba(224,92,84,']]){
+for(const[j2,cc]of[[mT,'rgba(232,134,58,'],[aT,'rgba(224,92,84,']]){
 if(!j2)continue;
 const rr=44*SET.stick;
 ctx.strokeStyle=cc+'.3)';ctx.lineWidth=2;
@@ -2943,13 +2943,20 @@ let next=SV.prog;while(next<=175&&SV.done[next])next++;
  $('#bContinue').textContent='CONTINUE OP — SECTOR '+Math.min(next,175);
  $('#bQM').textContent=SV.done[175]?'BLACK MARKET':'BLACK MARKET — LOCKED';
  $('#userChip').textContent='⏻ '+displayName().toUpperCase();}
-function paintMods(){
- $('#ebT').textContent='BEST: SECTOR '+(SV.ebest||0);
+function paintMods(){$('#ebT').textContent='BEST: SECTOR '+(SV.ebest||0);
  $('#bbT').textContent='BEST: SECTOR '+(SV.bbest||0);
 const g=$('#sGod');
 g.textContent=SV.sboxGod?'ON':'OFF';
+g.classList.toggle('on',!!SV.sboxGod);
+const lock=(id,open,why)=>{const b=$(id);b.disabled=!open;b.textContent=open?'LAUNCH':'LOCKED — '+why;};
+lock('#mEndless',!!SV.done[175],'BEAT THE CAMPAIGN');
+lock('#mBosses',!!SV.done[175],'BEAT THE CAMPAIGN');
+lock('#mSandbox',SV.prog>=75,'REACH SECTOR 75');}
 g.classList.toggle('on',!!SV.sboxGod);}
 function launchMod(kind){
+if(kind==='endless'&&!SV.done[175])return SFX.deny();
+if(kind==='bosses'&&!SV.done[175])return SFX.deny();
+if(kind==='sandbox'&&SV.prog<75)return SFX.deny();
 clearMod();
 MOD.active=true;
 if(kind==='endless'){MOD.endless=true;MOD.cur=MOD.startN=Math.min(SV.prog,175);}
@@ -3214,7 +3221,7 @@ h+=togHtml('flash','SCREEN FLASH');
 h+=togHtml('perf','PERFORMANCE MODE');
 h+=togHtml('reduced','REDUCED EFFECTS');
 h+=segHtml('sgLight','LIGHTING QUALITY',[['low','LOW'],['high','HIGH']],SET.light);
-h+=segHtml('sgTheme','COLOR THEME',[['green','GREEN'],['dark','DARK GREEN'],['custom','CUSTOM']],SET.theme);
+h+=segHtml('sgTheme','COLOR THEME',[['green','EMBER'],['dark','CHARCOAL'],['custom','CUSTOM']],SET.theme);
 h+='<div class="row"><span>CUSTOM ACCENT</span><input type="color" id="sCol" value="'+SET.customCol+'"></div>';
 h+=rangeHtml('bri','BRIGHTNESS',50,150,1,SET.bri);
 h+='<div class="row"><span>FULLSCREEN</span><button class="tog" id="sFull">'+(document.fullscreenElement?'EXIT':'ENTER')+'</button></div>';}
