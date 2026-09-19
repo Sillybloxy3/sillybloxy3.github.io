@@ -426,9 +426,9 @@ body.contrast .ov{background:rgba(0,3,1,.95)}
 <div class="mchip"><em>CONFIRMED KILLS</em><b id="kT">0</b></div>
 <div class="mchip"><em>SECTORS CLEARED</em><b id="pT">0 / 175</b></div>
 </div>
-<div class="small">WASD MOVE · MOUSE AIM · LMB FIRE · SPACE / RMB DASH · R RELOAD · G THROW LAPTOP · 1-0 + Q/E WEAPONS · SHIFT SPRINT · ESC PAUSE</div>
+<div class="small">-----</div>
 <div class="build">BUILD 1.0.1 · CLOUD CHANNEL</div>
-<div class="small" style="margin-top:6px">FOUND A BUG? TELL CALEB — SECTOR NUMBER + WHAT HAPPENED.</div>
+<div class="small" style="margin-top:6px">FOUND A BUG? TELL CALEB.</div>
 </div></div>
 
 <div class="ov" id="ovMods"><div class="card">
@@ -438,7 +438,7 @@ body.contrast .ov{background:rgba(0,3,1,.95)}
 <div class="modcard">
 <div class="mi">
 <div class="mn">ENDLESS MODE</div>
-<div class="md">The sectors never stop. Starts where your campaign stands and scales forever — deeper maps, meaner hordes, Alphas every 10th. Die and it's over.</div>
+<div class="md">The sectors never stop. Starts where your campaign stands and scales forever — deeper maps, meaner hordes. Die and it's over.</div>
 <div class="mr" id="ebT">BEST: SECTOR 0</div>
 </div>
 <button class="mbtn" id="mEndless">LAUNCH</button>
@@ -491,7 +491,7 @@ body.contrast .ov{background:rgba(0,3,1,.95)}
 
 <div class="ov" id="ovHow"><div class="card">
 <div class="kick">Briefing</div>
-<div class="howline"><b>MISSION</b> — clear all 175 sectors. <span class="em">Every 10th holds an Alpha hostile.</span> Every 5th is a hold-out — survive <b>60 seconds</b> until extraction.</div>
+<div class="howline"><b>MISSION</b> — clear all 175 sectors. <span class="em">Every 10th holds an Alpha hostile.</span> Every 5th is a hold-out — survive </b> until extraction.</div>
 <div class="howline"><b>WEATHER</b> — some sectors catch <b>rain</b> (−10% speed, −10% vision) or a <b>fog bank</b> (−25% vision). They can stack. Watch the sky report on deploy.</div>
 <div class="howline"><b>MOVEMENT</b> — WASD / arrows / left stick. On touch, the stick is analog. <b>AIM + FIRE</b> — mouse / right stick.</div>
 <div class="howline"><b>BUILDINGS</b> — most are enterable. Windows stop bodies — bullets shatter them. <b>Reinforced windows</b> stop bullets too — bring explosives or patience. Fences line the roads: they cut sightlines, block bullets, and can be shot, blasted or laptop'd open.</div>
@@ -623,11 +623,11 @@ h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);
 return (h2>>>0).toString(16).padStart(8,'0')+(h1>>>0).toString(16).padStart(8,'0');}
 const acSig=str=>cyrb(_SK+'|'+str+'|'+_SK.length);
 /* ==================== APPWRITE CLOUD — CONFIGURED ==================== */
-const AW_CONFIG={
- endpoint:'https://tor.cloud.appwrite.io/v1',
- project:'6aac35a9002ef4056b58',
- database:'6aac37bd00159b181c70',
- collection:'6aac388b002bb2fe1ea6'
+const BUG_CONFIG = {
+endpoint:'https://tor.cloud.appwrite.io/v1',
+project:'6aac35a9002ef4056b58',
+database:'6aac37bd00159b181c70',
+collection:'6aade5df001affa5307f'
 };
 const AW=(()=>{
 const cfg=AW_CONFIG;
