@@ -405,7 +405,8 @@ form.reset();cN.textContent='0';cN.parentElement.classList.remove('ok');
 const fb='TITLE: '+title+'\nSEVERITY: '+sev.toUpperCase()+'\nFROM: '+(who||'anonymous')+'\nPAGE: '+location.href+'\nDEVICE: '+navigator.userAgent+'\n\n'+details;
 try{localStorage.setItem('ashfall_bugreport',fb);}catch(e2){}
 st.className='bstatus err';
-st.innerHTML='TRANSMISSION FAILED — your report is saved on this device so nothing is lost. Copy it below and get it to Caleb directly.<textarea id="bugCopy"></textarea>';
+console.error('BUG REPORT ERROR:',err);
+st.innerHTML='TRANSMISSION FAILED ('+((err&&err.message)?err.message:'unknown')+') — your report is saved below so nothing is lost.<textarea id="bugCopy"></textarea>';
 const ta=document.getElementById('bugCopy');ta.value=fb;ta.focus();ta.select();
 }finally{sB.disabled=false;sB.textContent='File the report';}});})();
 
