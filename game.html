@@ -648,7 +648,7 @@ function EM(m){const s=String(m||'');
  if(/email/i.test(s))return 'ENTER A VALID EMAIL';
  if(/name/i.test(s))return 'INVALID CALLSIGN';
  if(/network|fetch|failed/i.test(s))return 'CLOUD UNREACHABLE — CHECK CONNECTION';
- return 'CLOUD ERROR — CHECK APPWRITE CONSOLE';}
+  return 'CLOUD ERROR: '+String(m||'UNKNOWN').slice(0,120);}
 return{ready,
  status(){if(!window.Appwrite)return 'SDK NOT LOADED (OFFLINE?)';
   return ready()?'READY':'NOT CONFIGURED';},
