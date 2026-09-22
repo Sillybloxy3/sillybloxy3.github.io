@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   1.    q                        AQQ.          AA      A                        aZZAAAZAZAAAXAA`<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -3041,36 +3041,7 @@ loadRecord();closeAuth();postLogin(false);};
 e.stopPropagation();if(e.key==='Enter')$('#authGo').click();}));
  $('#userChip').onclick=async()=>{SFX.ui();
 if(confirm('SIGN OUT OF '+displayName().toUpperCase()+'?\n\nYour record is synced to the cloud. You can sign back in any time.')){
-save();await flushCloud();await AW.logout();location.reload();}};
-/* ==================== LOOP + INIT ==================== */
-let last=performance.now();
-function loop(now){
-try{
-const dt=Math.min(.05,(now-last)/1000);last=now;
-wobSeed=Math.floor(now/130);
-if(document.body.classList.contains('inmenu')&&!SET.perf&&!SET.reduced)drawMenuFx(dt);
-if(ST==='play'&&R)update(dt);
-draw();
-AC.tick(dt);
-}catch(e){console.error(e);}
-requestAnimationFrame(loop);}
-setTheme();applyA11y();applyAudio();updateTouchUI();buildAch();
-(async function boot(){
-try{
-const user=await AW.current();
-if(user){
-ACCT=user.$id;
-AWNAME=(user.name||'').trim()||((user.email||'').split('@')[0]||'OPERATIVE');
-loadRecord();
-await cloudSync();
-checkAch();refreshMenu();
-if(acNote==='legacy')save();
-closeAuth();postLogin(false);}
-else openAuth('in');}
-catch(e){console.error(e);openAuth('in');}
-requestAnimationFrame(loop);})();
-addEventListener('pointerdown',()=>{SFX.ac();SFX.resume();MUSIC.start();MUSIC.resume();});
-})();
+save();await flushCloud();await AW.logout();`                                                                                                                                                                                                                                                                        
 <script src="game.js"></script>
 </body>
 </html>
