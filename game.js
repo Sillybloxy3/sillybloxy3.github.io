@@ -34,7 +34,7 @@ return (h2>>>0).toString(16).padStart(8,'0')+(h1>>>0).toString(16).padStart(8,'0
 const acSig=str=>cyrb(_SK+'|'+str+'|'+_SK.length);
 /* ==================== APPWRITE CLOUD — CONFIGURED ==================== */
 const AW_CONFIG={
- endpoint:'https://cloud.appwrite.io/v1',
+ endpoint:'https://tor.cloud.appwrite.io/v1',
  project:'6aac35a9002ef4056b58',
  database:'6aac37bd00159b181c70',
  collection:'6aac388b002bb2fe1ea6'
