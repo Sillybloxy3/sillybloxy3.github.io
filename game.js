@@ -2370,9 +2370,7 @@ showHud(false);MUSIC.setMood('menu');
  $('#shopLvl').textContent=nextSector();
 renderShop();}
 function renderShop(){
- $('#shopCash').textContent='$'+fmt(SV.cash);
- $('#shopTok').textContent='OMEGA TOKENS: '+SV.omega;
-const tabs=[['w','ARMORY'],['u','UPGRADES'],['p','PERKS'],['m','MODS'],['s','SUPPLIES']];
+ const tabs=[['w','ARMORY'],['u','UPGRADES'],['p','PERKS'],['m','MODS'],['s','SUPPLIES']];
  $('#shopTabs').innerHTML=tabs.map(t=>'<button class="'+(shopTab===t[0]?'on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>').join('');
  $$('#shopTabs button').forEach(b=>b.onclick=()=>{SFX.ui();shopTab=b.dataset.t;renderShop();});
 let h='';
