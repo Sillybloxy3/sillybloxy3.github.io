@@ -2322,7 +2322,6 @@ const lock=(id,open,why)=>{const b=$(id);b.disabled=!open;b.textContent=open?'LA
 lock('#mEndless',!!SV.done[175],'BEAT THE CAMPAIGN');
 lock('#mBosses',!!SV.done[175],'BEAT THE CAMPAIGN');
 lock('#mSandbox',SV.prog>=75,'REACH SECTOR 75');}
-g.classList.toggle('on',!!SV.sboxGod);}
 function launchMod(kind){
 if(kind==='endless'&&!SV.done[175])return SFX.deny();
 if(kind==='bosses'&&!SV.done[175])return SFX.deny();
