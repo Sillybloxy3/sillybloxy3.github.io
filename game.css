@@ -348,3 +348,37 @@ body.contrast .ov{background:rgba(0,3,1,.95)}
 .mleft{border-right:none;border-bottom:1px solid var(--ln);min-height:0;padding:26px 20px}
 .mright{padding:20px}
 .mkeys{grid-template-columns:1fr 1fr}}
+/* ==== SHOP REMAKE ==== */
+#shopCash{font-size:34px;text-shadow:0 0 20px rgba(232,194,104,.4);letter-spacing:.06em}
+.walletbar{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:520px;margin:0 auto 6px;padding:10px 18px;border:1px solid var(--ln);border-radius:4px;background:linear-gradient(180deg,rgba(20,17,16,.8),rgba(10,8,6,.6))}
+.walletbar .wl{font-size:8px;font-weight:700;letter-spacing:.3em;color:var(--dim2);text-transform:uppercase}
+.walletbar .wv{font-family:'Oswald',sans-serif;font-weight:600;font-size:26px;color:var(--gd);line-height:1}
+#shopTok{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.22em;color:#8dff6a;border:1px solid #3a5a46;border-radius:2px;padding:3px 10px;background:rgba(20,40,25,.4)}
+#shopTabs{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;border-bottom:none;margin:16px 0 10px}
+#shopTabs button{position:relative;border:1px solid var(--ln);border-radius:3px 3px 0 0;background:var(--pan2);font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;letter-spacing:.16em;padding:8px 16px 6px;margin-bottom:-1px;color:var(--dim);text-transform:uppercase;transition:all .12s}
+#shopTabs button:hover{color:var(--tx2);border-color:var(--ln2)}
+#shopTabs button.on{color:var(--ac2);border-color:var(--ac);background:var(--pan);border-bottom:2px solid var(--pan)}
+#shopList{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:52vh;overflow-y:auto;padding:4px 2px 10px}
+.srow{position:relative;display:flex;flex-direction:column;gap:6px;margin:0;padding:14px 16px 12px;border:1px solid var(--ln);border-left:3px solid var(--ln);border-radius:4px;background:linear-gradient(180deg,rgba(20,17,16,.85),rgba(12,9,7,.75));transition:all .14s}
+.srow:hover{border-color:var(--ln2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.srow .shead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.srow .n{font-family:'Oswald',sans-serif;font-weight:600;font-size:14.5px;letter-spacing:.1em;text-transform:uppercase}
+.srow .cls{font-size:8px;font-weight:700;letter-spacing:.24em;color:var(--dim2);text-transform:uppercase}
+.srow .d{font-size:11px;color:var(--dim);line-height:1.55;font-style:italic}
+.srow .chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.04em;color:var(--tx2);border:1px solid var(--ln);border-radius:2px;padding:2px 7px;background:rgba(0,0,0,.3)}
+.chip.hot{color:var(--em2);border-color:#4a3826}
+.chip.grn{color:#8dff6a;border-color:#3a5a46}
+.srow .tag{position:absolute;top:-1px;right:-1px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;padding:4px 12px;border-radius:0 4px 0 4px;background:rgba(232,134,58,.15);border:1px solid var(--ln);color:var(--ac2)}
+.srow.own .tag{color:#8dff6a;background:rgba(60,90,60,.2)}
+.srow.cant{opacity:.55}
+.srow.cant .tag{color:var(--dim2);background:rgba(0,0,0,.4)}
+.srow.own{border-left-color:#3a5a46}
+.srow.cant{border-left-color:#2a2018}
+.srow:not(.cant):not(.own){border-left-color:var(--ac)}
+#shopList .buy{align-self:flex-end;font-family:'Oswald',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.2em;padding:7px 22px;border:1px solid var(--ac);border-radius:3px;color:var(--ac2);background:rgba(232,134,58,.08);text-transform:uppercase;transition:all .12s}
+#shopList .buy:hover{background:var(--ac);color:#14100b;box-shadow:0 0 16px rgba(232,134,58,.35)}
+.srow.own .buy,.srow.cant .buy{border-color:var(--ln);color:var(--dim);background:transparent;pointer-events:none}
+.joke .d{color:var(--dim2)}
+#shopList .srow{grid-column:span 1}
+@media(max-width:640px){#shopList{grid-template-columns:1fr}}
