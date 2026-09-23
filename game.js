@@ -1304,7 +1304,7 @@ if(n>=SV.prog)SV.prog=Math.min(175,n+1);}
 else{MOD.cur=n+1;
 if(MOD.endless)SV.ebest=Math.max(SV.ebest||0,n);
 if(MOD.bosses)SV.bbest=Math.max(SV.bbest||0,n);}
-const bonus=Math.round(30+n*5)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1));
+const bonus=Math.round(30+n*5)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1);
 SV.cash+=bonus;R.cashRun+=bonus;
 const xb=Math.round(n*8*DIFFS[SV.diff].xp);
 gainXP(xb);
