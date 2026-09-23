@@ -2476,39 +2476,6 @@ if(R.P.armor>=cap){SFX.deny();toast('ARMOR ALREADY FULL','bad');return;}
 if(SV.cash<188)return SFX.deny();SV.cash-=188;R.P.armor=cap;SFX.buy();}
 checkAch();save();renderShop();updateHUD();});
 if(R)R.st=stats();}
-else if(u){const up=UPG[u],lv=SV.upg[u],price=Math.round(up.base*Math.pow(1.3,lv));
-if(lv>=8)return SFX.deny();if(SV.cash<price)return SFX.deny();
-SV.cash-=price;SV.upg[u]++;SFX.buy();if(SV.upg[u]>=8)award('maxed');}
-else if(p){const pk=PERKS[p];if(SV.cash<pk.p)return SFX.deny();
-SV.cash-=pk.p;SV.perks[p]=true;SFX.buy();toast(pk.n+' LEARNED','gold');
-if(Object.keys(SV.perks).length>=3)award('perks3');}
-else if(l){if(SV.cash<LASER_PRICE)return SFX.deny();
-SV.cash-=LASER_PRICE;SV.laser=l;
-if(!SV.mods)SV.mods={};
-for(const wk of SV.weapons){if(!SV.mods[wk])SV.mods[wk]={};SV.mods[wk].laser=true;}
-SFX.buy();toast(LASERS[l].n+' LASER SIGHT — FITTED TO ALL WEAPONS','gold');}
-else if(lc){if(SV.cash<125)return SFX.deny();
-SV.cash-=125;SV.laser=lc;SFX.buy();toast('BEAM RECOLOR — '+LASERS[lc].n,'gold');}
-else if(mm){if(!SV.weapons.includes(mm))return SFX.deny();
-if(SV.cash<MAGMOD_PRICE)return SFX.deny();
-SV.cash-=MAGMOD_PRICE;
-if(!SV.mods[mm])SV.mods[mm]={};SV.mods[mm].mag=true;
-if(R&&R.P.cur===mm)R.P.ammo[mm]=magOf(mm);
-SFX.buy();toast('EXTENDED MAG — '+WEAP[mm].n,'gold');}
-else if(s==='heal'){
-const canField=shopRun&&R&&(R.won||R.over);
-if(!canField)return SFX.deny();
-if(R.P.hp>=R.P.maxHp-5){SFX.deny();toast('ALREADY AT FULL HEALTH','bad');return;}
-const st=stats(),cost=Math.max(50,Math.round((st.maxHp-R.P.hp)*2.5));
-if(SV.cash<cost)return SFX.deny();SV.cash-=cost;R.P.hp=st.maxHp;SFX.buy();}
-else if(s==='armor'){
-const canField=shopRun&&R&&(R.won||R.over);
-if(!canField)return SFX.deny();
-const cap=Math.max(stats().armorMax,R.P.armor);
-if(R.P.armor>=cap){SFX.deny();toast('ARMOR ALREADY FULL','bad');return;}
-if(SV.cash<200)return SFX.deny();SV.cash-=200;R.P.armor=cap;SFX.buy();}
-checkAch();save();renderShop();updateHUD();});
-if(R)R.st=stats();}
 /* ==================== INPUT ==================== */
 let rebinding=null;
 addEventListener('keydown',e=>{
