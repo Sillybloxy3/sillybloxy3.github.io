@@ -1,4 +1,4 @@
-(function(){
+(function(){                                                                                                                                                                                                                                                                                                                                                                                                     (function(){
 'use strict';
 /* The whole game lives inside this closure: SV, R, WEAP, SFX, AW and
    every function are unreachable from the devtools console. */
