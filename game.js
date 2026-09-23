@@ -514,46 +514,46 @@ if(SFX.CH.w){SFX.CH.w.gain.value=SET.weap;SFX.CH.z.gain.value=SET.zomb;SFX.CH.u.
 const WEAP={
 pistol:{n:'P-11 SIDEARM',dmg:26,rate:.32,mag:12,rel:1,spread:.05,n2:0,bspd:920,crit:.08,price:0,k:'pistol',len:14,
 desc:'Standard issue. Light, honest, always there — like a friend who never lends you money.'},
-smg:{n:'VX-9 SMG',dmg:13,rate:.09,mag:32,rel:1.3,spread:.14,n2:0,bspd:950,crit:.05,price:750,k:'smg',len:17,
+smg:{n:'VX-9 SMG',dmg:13,rate:.1,mag:32,rel:1.3,spread:.14,n2:0,bspd:950,crit:.05,price:940,k:'smg',len:17,
 desc:'A hose. Aim is a suggestion; volume is a strategy.'},
-magnum:{n:'.44 MAGNUM',dmg:72,rate:.55,mag:6,rel:1.7,spread:.02,n2:0,bspd:1050,crit:.22,price:940,k:'magnum',len:15,
+magnum:{n:'.44 MAGNUM',dmg:72,rate:.55,mag:6,rel:1.7,spread:.02,n2:0,bspd:1050,crit:.22,price:1175,k:'magnum',len:15,
 desc:'One very heavy answer per question. Asks nothing back.'},
-shotgun:{n:'S-12 BREACHER',dmg:12,rate:.85,mag:6,rel:1.6,spread:.3,n2:7,bspd:800,crit:.06,price:1125,k:'shotgun',len:21,
+shotgun:{n:'S-12 BREACHER',dmg:12,rate:.85,mag:6,rel:1.6,spread:.3,n2:7,bspd:800,crit:.06,price:1405,k:'shotgun',len:21,
 desc:'Seven pellets of close-proximity negotiation. Best served at arm\u2019s length.'},
-dbl:{n:'DB SAWED-OFF',dmg:9,rate:.5,mag:2,rel:1.9,spread:.42,n2:12,bspd:760,crit:.05,price:1375,k:'dbl',len:18,
+dbl:{n:'DB SAWED-OFF',dmg:9,rate:.5,mag:2,rel:1.9,spread:.42,n2:12,bspd:760,crit:.05,price:1720,k:'dbl',len:18,
 desc:'Two barrels, zero patience. Reloads like it\u2019s judging you.'},
-rifle:{n:'M4 CARBINE',dmg:46,rate:.17,mag:24,rel:1.5,spread:.055,n2:0,bspd:1050,crit:.1,price:1750,k:'rifle',len:22,
+rifle:{n:'M4 CARBINE',dmg:46,rate:.17,mag:24,rel:1.5,spread:.055,n2:0,bspd:1050,crit:.1,price:2175,k:'rifle',len:22,
 desc:'The reliable one. Boring on paper — alive because of it.'},
 battle:{n:'BR-7 BATTLE RIFLE',dmg:38,rate:.12,mag:20,rel:1.7,spread:.07,n2:0,bspd:1100,crit:.09,price:2250,k:'battle',len:23,
 desc:'Slow, heavy, honest. Every shot means it.'},
-sniper:{n:'LRS-1 MARKSMAN',dmg:135,rate:1.05,mag:5,rel:1.8,spread:.004,n2:0,bspd:1400,crit:.25,pierce:99,price:2750,k:'sniper',len:26,
+sniper:{n:'LRS-1 MARKSMAN',dmg:135,rate:1.05,mag:5,rel:1.8,spread:.004,n2:0,bspd:1400,crit:.25,pierce:99,price:3440,k:'sniper',len:26,
 desc:'One trigger pull, one obituary. Rounds punch clean through a line.'},
-minigun:{n:'HVY-60 SAW',dmg:11,rate:.05,mag:80,rel:2.6,spread:.19,n2:0,bspd:1000,crit:.04,price:4000,k:'minigun',len:24,
+minigun:{n:'HVY-60 SAW',dmg:11,rate:.05,mag:80,rel:2.6,spread:.19,n2:0,bspd:1000,crit:.04,price:5000,k:'minigun',len:24,
 desc:'A hundred-round argument you can hold. Ends conversations.'},
-finger:{n:'FINGER PISTOL',dmg:1,rate:.5,mag:1,rel:5,spread:0,n2:0,bspd:900,crit:0,price:125,k:'finger',len:6,blife:.2,joke:1,
+finger:{n:'FINGER PISTOL',dmg:1,rate:.5,mag:1,rel:5,spread:0,n2:0,bspd:900,crit:0,price:156,k:'finger',len:6,blife:.2,joke:1,
 desc:'\u201CBang.\u201D'}};
 const WORD=['pistol','smg','magnum','shotgun','dbl','rifle','battle','sniper','minigun'];
 const JokeK=['finger'];
-const REASONS=['Because you have $125.','Your other guns are too effective.','You looked at it for 3 seconds, so technically you need it.','The zombies deserve a chance.','It has 100% accuracy. What more could you possibly want?','It\u2019s technically ammunition-efficient.','Your finger was already there.','Limited-time offer! It has been here forever.','The salesman said it was good.','Refunds are unavailable because we already spent the money.','For collectors.','For scientists.','For people who make bad decisions.','It might become useful eventually.','Probably.','Because the RPG costs more.','It\u2019s cheaper than therapy.','Achievement requirement: Own something stupid.','We needed to fill this slot.','Don\u2019t ask.'];
+const REASONS=['Because you have $156.','Your other guns are too effective.','You looked at it for 1 second, so technically you need it.','The zombies deserve a chance.','It has 100% accuracy. What more could you possibly want?','It\u2019s technically ammunition-efficient.','Your finger was already there.','Limited-time offer! It has been here forever.','The salesman said it was good.','Refunds are unavailable because we already spent the money.','For collectors.','For scientists.','For people who make bad decisions.','It might become useful eventually.','Probably.','Because the RPG costs more.','It\u2019s cheaper than therapy.','Achievement requirement: Own something stupid.','We needed to fill this slot.','Don\u2019t ask.'];
 const BLACK={
-judge:{n:'JUDGE — .50 — BLACK',dmg:150,rate:.6,mag:7,rel:1.9,spread:.02,n2:0,bspd:1200,crit:.35,price:11250,k:'magnum',len:17},
-hell:{n:'HELLFIRE S-8 — BLACK',dmg:26,rate:.55,mag:8,rel:2.1,spread:.34,n2:10,bspd:820,crit:.07,price:13125,k:'dbl',len:24},
-storm:{n:'RGX-7 STORM — BLACK',dmg:32,rate:.045,mag:100,rel:3,spread:.13,n2:0,bspd:1050,crit:.06,price:15000,k:'minigun',len:27},
+judge:{n:'JUDGE — .50 — BLACK',dmg:150,rate:.6,mag:7,rel:1.9,spread:.02,n2:0,bspd:1200,crit:.35,price:14060,k:'magnum',len:17},
+hell:{n:'HELLFIRE S-8 — BLACK',dmg:26,rate:.55,mag:8,rel:2.1,spread:.34,n2:10,bspd:820,crit:.07,price:16405,k:'dbl',len:24},
+storm:{n:'RGX-7 STORM — BLACK',dmg:32,rate:.045,mag:100,rel:3,spread:.13,n2:0,bspd:1050,crit:.06,price:18750,k:'minigun',len:27},
 arc:{n:'ARC-9 LONGSTRIKE — BLACK',dmg:280,rate:1.35,mag:4,rel:2.2,spread:.002,n2:0,bspd:1700,crit:.3,pierce:99,price:143750,k:'sniper',len:30}};
 const BLACKK=['judge','hell','storm','arc'];
 const PROTO={
-rpg:{n:'RPG — HEAVY',dmg:1100,rate:2.222,mag:1,rel:2.8,spread:.05,n2:0,bspd:1600,crit:.1,price:35000,k:'rpg',len:29,rocket:1,
+rpg:{n:'RPG — HEAVY',dmg:1100,rate:2.222,mag:1,rel:2.8,spread:.05,n2:0,bspd:1600,crit:.1,price:43750,k:'rpg',len:29,rocket:1,
 blast:{r:240,dmg:850,knock:90},
 desc:'IMPACT — 1,100 dmg rocket detonates on contact (~6.5 m blast, extreme knockback). Blows walls, fences and reinforced windows clean out. Hurts you too.'},
-morph:{n:'MORPH-7 — PROTOTYPE',dmg:185,rate:.105,mag:48,rel:1.7,spread:.06,n2:0,bspd:1300,crit:.12,price:22500,k:'rifle',len:24,adapt:1,
+morph:{n:'MORPH-7 — PROTOTYPE',dmg:185,rate:.105,mag:48,rel:1.7,spread:.06,n2:0,bspd:1300,crit:.12,price:28125,k:'rifle',len:24,adapt:1,
 desc:'ADAPT — ammo re-tunes per target: negates armor, +bonus vs tanks, runners and Alphas.'},
 vant:{n:'VANTAGE — PROTOTYPE',dmg:520,rate:.714,mag:10,rel:2.8,spread:.008,n2:0,bspd:2000,crit:.25,pierce:8,price:27500,k:'sniper',len:30,
 desc:'OVERPENETRATION — rail slugs punch through up to 8 infected, losing 25% per body.'},
-bbox:{n:'BLACKBOX — PROTOTYPE',dmg:115,rate:.555,mag:9,rel:2.6,spread:.28,n2:12,bspd:850,crit:.1,price:25000,k:'dbl',len:22,knock:46,
+bbox:{n:'BLACKBOX — PROTOTYPE',dmg:115,rate:.555,mag:9,rel:2.6,spread:.28,n2:12,bspd:850,crit:.1,price:34375,k:'dbl',len:22,knock:46,
 desc:'BREACH — 115x12 pellets with extreme knockback; impacts stagger entire groups.'},
-kor:{n:'K-OR — PROTOTYPE',dmg:165,rate:.133,mag:60,rel:2.1,verb:'RECHARGING',spread:.09,n2:0,bspd:1400,crit:.08,price:26250,k:'zap',len:23,arc:{n:3,r:240},
+kor:{n:'K-OR — PROTOTYPE',dmg:165,rate:.133,mag:60,rel:2.1,verb:'RECHARGING',spread:.09,n2:0,bspd:1400,crit:.08,price:31250,k:'zap',len:23,arc:{n:3,r:240},
 desc:'ARC — 60-round cell; bolts jump to 3 nearby infected. Recharges instead of reloading.'},
-light:{n:'LAST LIGHT — PROTOTYPE',dmg:750,rate:1.111,mag:6,rel:3.4,spread:.12,n2:0,bspd:1500,crit:.2,price:32500,k:'battle',len:28,
+light:{n:'LAST LIGHT — PROTOTYPE',dmg:750,rate:1.111,mag:6,rel:3.4,spread:.12,n2:0,bspd:1500,crit:.2,price:40625,k:'battle',len:28,
 blast:{r:150,dmg:400},final:{r:240,dmg:700},
 desc:'FINAL ROUND — every shell detonates; every THIRD shot erupts in a much larger blast. Blows walls out — and singes the shooter.'}};
 const PROTOK=['rpg','morph','vant','bbox','kor','light'];
@@ -590,20 +590,20 @@ const MAPS=[
 {n:'CHECKPOINT ALPHA',road:'crossN',g:'#1e221c',o:'#3a442c',ob:'#4e5c3c'},
 {n:'THRESHOLD FACILITY',g:'#16201f',o:'#28403e',ob:'#365654'}];
 const PERKS={
-quickhands:{n:'SLICK MAGS',d:'Reload 25% faster',p:920},
-marathon:{n:'ENDURANCE',d:'+12% move speed',p:805},
-tough:{n:'HARDENED',d:'+30 max HP',p:1030},
-deadeye:{n:'MARKSMAN',d:'+15% crit chance',p:1000},
-scavenger:{n:'SCROUNGER',d:'+20% credits from kills',p:1030},
-medic:{n:'FIELD MEDIC',d:'Regenerate HP out of combat',p:978},
-adrenaline:{n:'ADRENALINE',d:'Dash cooldown -30%',p:1039}};
+quickhands:{n:'SLICK MAGS',d:'Reload 25% faster',p:1150},
+marathon:{n:'ENDURANCE',d:'+12% move speed',p:1005},
+tough:{n:'HARDENED',d:'+20 max HP',p:1290},
+deadeye:{n:'MARKSMAN',d:'+15% crit chance',p:1250},
+scavenger:{n:'SCROUNGER',d:'+20% credits from kills',p:1290},
+medic:{n:'FIELD MEDIC',d:'Regenerate HP out of combat',p:1225},
+adrenaline:{n:'ADRENALINE',d:'Dash cooldown -30%',p:1300}};
 const UPG={
-dmg:{n:'DAMAGE',d:'+8% weapon damage / level',base:288},
-rate:{n:'FIRE RATE',d:'+7% fire rate / level',base:322},
-hp:{n:'MAX HP',d:'+25 max health / level',base:322},
-spd:{n:'SPEED',d:'+5% move speed / level',base:276},
-armor:{n:'ARMOR PLATING',d:'+25 armor / level',base:345},
-crit:{n:'CRIT CHANCE',d:'+3% crit / level',base:345}};
+dmg:{n:'DAMAGE',d:'+6% weapon damage / level',base:1000},
+rate:{n:'FIRE RATE',d:'+5% fire rate / level',base1000},
+hp:{n:'MAX HP',d:'+20 max health / level',base:1000},
+spd:{n:'SPEED',d:'+4% move speed / level',base:1000},
+armor:{n:'ARMOR PLATING',d:'+25 armor / level',base:1000},
+crit:{n:'CRIT CHANCE',d:'+2% crit / level',base:1000}};
 const DIFFS={
 easy:{zhp:.7,zd:.6,zs:.9,cash:1.25,xp:1},
 normal:{zhp:1,zd:1,zs:1,cash:1,xp:1},
@@ -717,16 +717,16 @@ g.addColorStop(0,'rgba('+ar+','+ag+','+ab+',.10)');g.addColorStop(1,'rgba('+ar+'
 fctx.fillStyle=g;fctx.fillRect(f.x*fxc.width-f.r,f.y*fxc.height-f.r,f.r*2,f.r*2);}
 for(const p of mP){p.y+=p.v*dt*26;if(p.y<-.02){p.y=1.02;p.x=Math.random();}
 fctx.globalAlpha=p.a*(.5+Math.sin(performance.now()/600+p.x*10)*.3);
-fctx.fillStyle='#8ad8b0';fctx.fillRect(p.x*fxc.width,p.y*fxc.height,p.s,p.s*p.s*2.2);}
+fctx.fillStyle='#e8a86a';fctx.fillRect(p.x*fxc.width,p.y*fxc.height,p.s,p.s*p.s*2.2);}
 fctx.globalAlpha=1;}
 /* ==================== STATS ==================== */
 function stats(){const u=SV.upg,p=SV.perks,base=SV.plvl;
-return{maxHp:100+u.hp*25+(p.tough?30:0)+(base-1)*4,
-dmgMul:(1+u.dmg*.08)*(1+(base-1)*.02)*.9,
-rateMul:1+u.rate*.07,
-spd:225*(1+u.spd*.05)*(p.marathon?1.12:1),
-armorMax:u.armor*25,
-crit:WEAP.pistol.crit+u.crit*.03+(p.deadeye?.15:0),
+return{maxHp:100+u.hp*18+(p.tough?20:0)+(base-1)*4,
+dmgMul:(1+u.dmg*.06)*(1+(base-1)*.02)*.9,
+rateMul:1+u.rate*.05,
+spd:225*(1+u.spd*.035)*(p.marathon?1.12:1),
+armorMax:u.armor*15,
+crit:WEAP.pistol.crit+u.crit*.02+(p.deadeye?.15:0),
 relMul:(p.quickhands?.75:1)*1.25,
 cashMul:(p.scavenger?1.2:1),
 dashCd:2.4*(p.adrenaline?.7:1)};}
@@ -1159,7 +1159,7 @@ function killZ(z,fromHaz){
 if(z.dead)return;z.dead=true;
 R.kills++;SV.kills++;
 if(fromHaz){R.hazKills++;if(R.hazKills>=10)award('sapper');}
-const c=Math.round(z.cash*R.st.cashMul*.85);
+const c=Math.round(z.cash*R.st.cashMul*.64);
 SV.cash+=c;R.cashRun+=c;
 gainXP(z.xp);
 SFX.zzie();
@@ -1304,7 +1304,7 @@ if(n>=SV.prog)SV.prog=Math.min(175,n+1);}
 else{MOD.cur=n+1;
 if(MOD.endless)SV.ebest=Math.max(SV.ebest||0,n);
 if(MOD.bosses)SV.bbest=Math.max(SV.bbest||0,n);}
-const bonus=Math.round((40+n*6)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1));
+const bonus=Math.round(30+n*5)*(SV.diff==='easy'?1.15:SV.diff==='hard'?.9:SV.diff==='nightmare'?.8:1));
 SV.cash+=bonus;R.cashRun+=bonus;
 const xb=Math.round(n*8*DIFFS[SV.diff].xp);
 gainXP(xb);
@@ -1568,7 +1568,7 @@ R.parts.push({x:z.x-Math.cos(z.ang)*z.r*.5,y:z.y-Math.sin(z.ang)*z.r*.5,vx:rnd(-
 if(z.rng){z.ft=(z.ft||md(1,2.4))-dt;
 if(z.ft<=0&&d<560&&los(z,P)){z.ft=2.3;
 R.globs.push({x:z.x,y:z.y,vx:dx/d*240,vy:dy/d*240,r:5,life:3,dmg:z.dmg});}}
-if(z.boom&&d<64&&z.fuse<0)z.fuse=.8;
+if(z.boom&&d<64&&z.fuse<0)z.fuse=3.25;
 if(d<z.r+P.r+2&&z.atk<=0&&z.fuse<0&&!winBetween(z,P)){z.atk=.8;hurtP(z.dmg);}}}
 R.zoms=R.zoms.filter(z=>z.hp>0&&!z.dead);
 /* ---- bullets ---- */
@@ -1666,7 +1666,7 @@ if(d2(p,P)<400){
 SFX.pick();
 if(p.k==='hp'){P.hp=Math.min(P.maxHp,P.hp+25);toast('+HP');}
 else if(p.k==='ar'){P.armor=Math.min(Math.max(1,R.st.armorMax,P.armor),P.armor+20);toast('+PLATE');}
-else{const v=Math.round((p.v||20)*R.st.cashMul);SV.cash+=v;R.cashRun+=v;toast('+$'+v,'gold');}
+else{const v=Math.round((p.v||20)*R.st.cashMul*.75);SV.cash+=v;R.cashRun+=v;toast('+$'+v,'gold');}
 updateHUD();return false;}
 return true;});
 R.parts=R.parts.filter(p=>{p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.96;p.vy*=.96;return p.life>0;});
@@ -2399,9 +2399,9 @@ for(const k in PERKS){const p=PERKS[k],own=SV.perks[k];
 h+='<div class="srow '+(own?'own':(SV.cash>=p.p?'':'cant'))+'"><div class="info"><div class="n">'+p.n+'</div><div class="d">'+p.d+'</div></div><div class="p">'+(own?'OWNED':'$'+fmt(p.p))+'</div><button class="buy" data-p="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
 else if(shopTab==='m'){
 if(SV.laser){
-h+='<div class="srow own"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[SV.laser].c+'"></span>LASER SIGHT — '+LASERS[SV.laser].n+'</div><div class="d">-30% spread on all weapons. Change color below for $100.</div></div><div class="p">EQUIPPED</div></div>';
+h+='<div class="srow own"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[SV.laser].c+'"></span>LASER SIGHT — '+LASERS[SV.laser].n+'</div><div class="d">-30% spread on all weapons. Change color below for $125.</div></div><div class="p">EQUIPPED</div></div>';
 for(const k in LASERS){if(k===SV.laser)continue;
-h+='<div class="srow '+(SV.cash>=100?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>RECOLOR — '+LASERS[k].n+'</div><div class="d">Same effect, different beam color. Pure style.</div></div><div class="p">$100</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
+h+='<div class="srow '+(SV.cash>=125?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>RECOLOR — '+LASERS[k].n+'</div><div class="d">Same effect, different beam color. Pure style.</div></div><div class="p">$100</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
 else{
 for(const k in LASERS){
 h+='<div class="srow '+(SV.cash>=LASER_PRICE?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>LASER SIGHT — '+LASERS[k].n+'</div><div class="d">-30% spread on every weapon. All colors identical — pick your style.</div></div><div class="p">$'+fmt(LASER_PRICE)+'</div><button class="buy" data-l="'+k+'">BUY</button></div>';}}
