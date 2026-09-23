@@ -2401,7 +2401,7 @@ else if(shopTab==='m'){
 if(SV.laser){
 h+='<div class="srow own"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[SV.laser].c+'"></span>LASER SIGHT — '+LASERS[SV.laser].n+'</div><div class="d">-30% spread on all weapons. Change color below for $125.</div></div><div class="p">EQUIPPED</div></div>';
 for(const k in LASERS){if(k===SV.laser)continue;
-h+='<div class="srow '+(SV.cash>=125?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>RECOLOR — '+LASERS[k].n+'</div><div class="d">Same effect, different beam color. Pure style.</div></div><div class="p">$100</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
+h+='<div class="srow '+(SV.cash>=125?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>RECOLOR — '+LASERS[k].n+'</div><div class="d">Same effect, different beam color. Pure style.</div></div><div class="p">$125</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
 else{
 for(const k in LASERS){
 h+='<div class="srow '+(SV.cash>=LASER_PRICE?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>LASER SIGHT — '+LASERS[k].n+'</div><div class="d">-30% spread on every weapon. All colors identical — pick your style.</div></div><div class="p">$'+fmt(LASER_PRICE)+'</div><button class="buy" data-l="'+k+'">BUY</button></div>';}}
@@ -2410,15 +2410,15 @@ const w=WEAP[k],has=SV.mods[k]&&SV.mods[k].mag;
 if(has)continue;
 h+='<div class="srow '+(SV.cash>=MAGMOD_PRICE?'':'cant')+'"><div class="info"><div class="n">EXTENDED MAG — '+w.n+'</div><div class="d">+40% capacity ('+w.mag+' → '+Math.round(w.mag*1.4)+'). Attaches to this weapon only.</div></div><div class="p">$'+fmt(MAGMOD_PRICE)+'</div><button class="buy" data-mm="'+k+'">BUY</button></div>';}}
 else{
-const canField=shopRun&&R&&(R.won||!R.over);
+const canField=shopRun&&R&&(R.won||R.over);
 if(!canField){
 h+='<div class="srow own"><div class="info"><div class="n">FIELD SUPPLIES UNAVAILABLE</div><div class="d">Medical supplies are issued between sectors — clear a sector first, or use the depot after your next run.</div></div><div class="p">—</div></div>';
 }else{
 const st=stats(),cur=Math.ceil(R.P.hp);
 const arCap=Math.max(1,Math.max(R.st.armorMax,R.P.armor));
-const healP=Math.max(50,Math.round((st.maxHp-cur)*2));
+const healP=Math.max(50,Math.round((st.maxHp-cur)*2.5));
 h+='<div class="srow '+(SV.cash>=healP&&cur<Math.round(st.maxHp)?'':'cant')+'"><div class="info"><div class="n">FIELD SURGERY</div><div class="d">Restore HP to full (now '+cur+'/'+Math.round(st.maxHp)+')</div></div><div class="p">'+(cur>=Math.round(st.maxHp)?'FULL':'$'+fmt(healP))+'</div><button class="buy" data-s="heal">BUY</button></div>';
-h+='<div class="srow '+(SV.cash>=150&&R.P.armor<arCap?'':'cant')+'"><div class="info"><div class="n">ARMOR PLATE</div><div class="d">Fill armor to '+arCap+'</div></div><div class="p">'+(R.P.armor>=arCap?'FULL':'$150')+'</div><button class="buy" data-s="armor">BUY</button></div>';}}
+h+='<div class="srow '+(SV.cash>=200&&R.P.armor<arCap?'':'cant')+'"><div class="info"><div class="n">ARMOR PLATE</div><div class="d">Fill armor to '+arCap+'</div></div><div class="p">'+(R.P.armor>=arCap?'FULL':'$200')+'</div><button class="buy" data-s="armor">BUY</button></div>';}}
  $('#shopList').innerHTML=h;
  $$('#shopList .buy').forEach(b=>b.onclick=()=>{
 const k=b.dataset.w,u=b.dataset.u,p=b.dataset.p,s=b.dataset.s,l=b.dataset.l,lc=b.dataset.lc,mm=b.dataset.mm;
@@ -2448,8 +2448,8 @@ SV.cash-=LASER_PRICE;SV.laser=l;
 if(!SV.mods)SV.mods={};
 for(const wk of SV.weapons){if(!SV.mods[wk])SV.mods[wk]={};SV.mods[wk].laser=true;}
 SFX.buy();toast(LASERS[l].n+' LASER SIGHT — FITTED TO ALL WEAPONS','gold');}
-else if(lc){if(SV.cash<100)return SFX.deny();
-SV.cash-=100;SV.laser=lc;SFX.buy();toast('BEAM RECOLOR — '+LASERS[lc].n,'gold');}
+else if(lc){if(SV.cash<125)return SFX.deny();
+SV.cash-=125;SV.laser=lc;SFX.buy();toast('BEAM RECOLOR — '+LASERS[lc].n,'gold');}
 else if(mm){if(!SV.weapons.includes(mm))return SFX.deny();
 if(SV.cash<MAGMOD_PRICE)return SFX.deny();
 SV.cash-=MAGMOD_PRICE;
@@ -2457,17 +2457,17 @@ if(!SV.mods[mm])SV.mods[mm]={};SV.mods[mm].mag=true;
 if(R&&R.P.cur===mm)R.P.ammo[mm]=magOf(mm);
 SFX.buy();toast('EXTENDED MAG — '+WEAP[mm].n,'gold');}
 else if(s==='heal'){
-const canField=shopRun&&R&&(R.won||!R.over);
+const canField=shopRun&&R&&(R.won||R.over);
 if(!canField)return SFX.deny();
 if(R.P.hp>=R.P.maxHp-5){SFX.deny();toast('ALREADY AT FULL HEALTH','bad');return;}
-const st=stats(),cost=Math.max(50,Math.round((st.maxHp-R.P.hp)*2));
+const st=stats(),cost=Math.max(50,Math.round((st.maxHp-R.P.hp)*2.5));
 if(SV.cash<cost)return SFX.deny();SV.cash-=cost;R.P.hp=st.maxHp;SFX.buy();}
 else if(s==='armor'){
-const canField=shopRun&&R&&(R.won||!R.over);
+const canField=shopRun&&R&&(R.won||R.over);
 if(!canField)return SFX.deny();
 const cap=Math.max(stats().armorMax,R.P.armor);
 if(R.P.armor>=cap){SFX.deny();toast('ARMOR ALREADY FULL','bad');return;}
-if(SV.cash<150)return SFX.deny();SV.cash-=150;R.P.armor=cap;SFX.buy();}
+if(SV.cash<200)return SFX.deny();SV.cash-=200;R.P.armor=cap;SFX.buy();}
 checkAch();save();renderShop();updateHUD();});
 if(R)R.st=stats();}
 /* ==================== INPUT ==================== */
