@@ -2370,53 +2370,61 @@ showHud(false);MUSIC.setMood('menu');
  $('#shopLvl').textContent=nextSector();
 renderShop();}
 function renderShop(){
- const tabs=[['w','ARMORY'],['u','UPGRADES'],['p','PERKS'],['m','MODS'],['s','SUPPLIES']];
+const kick=$('#shopKick'),sk=document.querySelector('#ovShop .title');
+if(kick&&!document.querySelector('.walletbar')){
+const wb=document.createElement('div');wb.className='walletbar';
+wb.innerHTML='<div><div class="wl">CREDITS</div><div class="wv" id="shopCash2">$0</div></div><div id="shopTok">OMEGA TOKENS: 0</div>';
+sk.parentNode.insertBefore(wb,sk.nextSibling);}
+ $('#shopCash2').textContent='$'+fmt(SV.cash);
+ $('#shopTok').textContent='OMEGA TOKENS: '+SV.omega;
+const tabs=[['w','ARMORY'],['u','UPGRADES'],['p','PERKS'],['m','MODS'],['s','SUPPLIES']];
  $('#shopTabs').innerHTML=tabs.map(t=>'<button class="'+(shopTab===t[0]?'on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>').join('');
  $$('#shopTabs button').forEach(b=>b.onclick=()=>{SFX.ui();shopTab=b.dataset.t;renderShop();});
 let h='';
+const chipRow=w=>'<div class="chips"><span class="chip'+(w.dmg>=100?' hot':'')+'">DMG '+w.dmg+(w.n2?'×'+w.n2:'')+'</span><span class="chip">'+(1/w.rate).toFixed(1)+'/s</span><span class="chip">MAG '+w.mag+'</span><span class="chip'+(w.crit>=.2?' hot':'')+'">CRIT '+Math.round(w.crit*100)+'%</span>'+(w.pierce?'<span class="chip grn">PIERCE</span>':'')+(w.blast?'<span class="chip hot">BLAST</span>':'')+(w.ult?'<span class="chip grn">'+(w.ult==='overclock'?'OVERCLOCK':'CASCADE')+'</span>':'')+'</div>';
 if(shopTab==='w'){
 if(!SV.done[175]){
-h+='<div class="srow own"><div class="info"><div class="n">BLACK MARKET — CLASSIFIED</div><div class="d">Heavy ordnance, prototype weapons and two bio-weapons are held in the vault. This stock unlocks when the campaign is complete — Sector 175.</div></div><div class="p">LOCKED</div></div>';
+h+='<div class="srow own"><div class="shead"><div><div class="n">BLACK MARKET — CLASSIFIED</div><div class="cls">Vault Access Required</div></div><span class="tag">LOCKED</span></div><div class="d">Heavy ordnance, prototype weapons and two bio-weapons are held in the vault. This stock unlocks when the campaign is complete — Sector 175.</div></div>';
 }else{
 for(const k of OMEGAK){const w=WEAP[k],own=SV.weapons.includes(k),can=SV.omega>=1;
-h+='<div class="srow '+(own?'own':(can?'':'cant'))+'" style="border-left-color:#5ad46a"><div class="info"><div class="n" style="color:#8dff6a">'+w.n+'</div><div class="d">'+w.desc+'</div><div class="d">DMG '+w.dmg+' · '+(1/w.rate).toFixed(1)+'/s · ENERGY '+w.mag+' · CRIT '+Math.round(w.crit*100)+'% · ULT: '+(w.ult==='overclock'?'OVERCLOCK [F]':'CASCADE [F]')+'</div></div><div class="p">'+(own?'OWNED':'1 TOKEN')+'</div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}
+h+='<div class="srow '+(own?'own':(can?'':'cant'))+'" style="border-left-color:#5ad46a"><div class="shead"><div><div class="n" style="color:#8dff6a">'+w.n+'</div><div class="cls">Omega Bio-Weapon</div></div><span class="tag">'+(own?'OWNED':'1 TOKEN')+'</span></div><div class="d">'+w.desc+'</div>'+chipRow(w)+'<button class="buy" data-w="'+k+'">'+(own?'EQUIPPED':'RELEASE')+'</button></div>';}
 for(const k of PROTOK){const w=WEAP[k],own=SV.weapons.includes(k);
-h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'" style="border-left-color:var(--gd)"><div class="info"><div class="n">'+w.n+'</div><div class="d">'+(w.desc||'')+'</div><div class="d">DMG '+w.dmg+(w.n2?' x '+w.n2:'')+' · '+(1/w.rate).toFixed(1)+'/s · MAG '+w.mag+' · CRIT '+Math.round(w.crit*100)+'%'+(w.pierce?' · PIERCING':'')+(w.blast?' · BLAST':'')+'</div></div><div class="p">'+(own?'OWNED':'$'+fmt(w.price))+'</div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}
+h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'"><div class="shead"><div><div class="n">'+w.n+'</div><div class="cls">Prototype</div></div><span class="tag">'+(own?'OWNED':'$'+fmt(w.price))+'</span></div><div class="d">'+(w.desc||'')+'</div>'+chipRow(w)+'<button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}
 for(const k of BLACKK){const w=WEAP[k],own=SV.weapons.includes(k);
-h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'" style="border-left-color:var(--rd)"><div class="info"><div class="n">'+w.n+'</div><div class="d">DMG '+w.dmg+(w.n2?' x '+w.n2:'')+' · '+(1/w.rate).toFixed(1)+'/s · MAG '+w.mag+' · CRIT '+Math.round(w.crit*100)+'%'+(w.pierce?' · PIERCING':'')+'</div></div><div class="p">'+(own?'OWNED':'$'+fmt(w.price))+'</div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
+h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'"><div class="shead"><div><div class="n">'+w.n+'</div><div class="cls">Black Market</div></div><span class="tag">'+(own?'OWNED':'$'+fmt(w.price))+'</span></div><div class="d">Heavy ordnance. No frills — just consequences for the infected.</div>'+chipRow(w)+'<button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
 for(const k of JokeK){const w=WEAP[k],own=SV.weapons.includes(k);
 const reason=REASONS[ri(0,REASONS.length-1)];
-h+='<div class="srow joke '+(own?'own':'')+'"><div class="info"><div class="n">'+w.n+'</div><div class="d">'+reason+'</div><div class="d">DMG 1 · 0.2/s · MAG 1 · CRIT 0% · 100% ACCURACY · RANGE: VERY SHORT</div></div><div class="p">'+(own?'OWNED':'$100')+'</div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}
+h+='<div class="srow joke '+(own?'own':'')+'"><div class="shead"><div><div class="n">'+w.n+'</div><div class="cls">??? </div></div><span class="tag">'+(own?'OWNED':'$'+fmt(w.price))+'</span></div><div class="d">'+reason+'</div><div class="chips"><span class="chip">DMG 1</span><span class="chip">MAG 1</span><span class="chip">ACC 100%</span><span class="chip">RANGE: NO</span></div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}
 for(const k of WORD){const w=WEAP[k],own=SV.weapons.includes(k);
-h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'"><div class="info"><div class="n">'+w.n+'</div><div class="d">'+w.desc+'</div><div class="d">DMG '+w.dmg+(w.n2?' x '+w.n2:'')+' · '+(1/w.rate).toFixed(1)+'/s · MAG '+w.mag+' · CRIT '+Math.round(w.crit*100)+'%'+(w.pierce?' · PIERCING':'')+'</div></div><div class="p">'+(own?'OWNED':'$'+fmt(w.price))+'</div><button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
+h+='<div class="srow '+(own?'own':(SV.cash>=w.price?'':'cant'))+'"><div class="shead"><div><div class="n">'+w.n+'</div><div class="cls">'+({pistol:'Sidearm',smg:'SMG',magnum:'Revolver',shotgun:'Shotgun',dbl:'Sawed-Off',rifle:'Rifle',battle:'Battle Rifle',sniper:'Sniper',minigun:'Minigun'})[k]+'</div></div><span class="tag">'+(own?'OWNED':'$'+fmt(w.price))+'</span></div><div class="d">'+w.desc+'</div>'+chipRow(w)+'<button class="buy" data-w="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
 else if(shopTab==='u'){
 for(const k in UPG){const u=UPG[k],lv=SV.upg[k],max=lv>=8,price=Math.round(u.base*Math.pow(1.3,lv));
-h+='<div class="srow '+(max?'own':(SV.cash>=price?'':'cant'))+'"><div class="info"><div class="n">'+u.n+' <span style="color:var(--dim)">— LV '+lv+'/8</span></div><div class="d">'+u.d+'</div><div class="lvbox">'+'<i class="f"></i>'.repeat(lv)+'<i></i>'.repeat(8-lv)+'</div></div><div class="p">'+(max?'MAX':'$'+fmt(price))+'</div><button class="buy" data-u="'+k+'">'+(max?'—':'BUY')+'</button></div>';}}
+h+='<div class="srow '+(max?'own':(SV.cash>=price?'':'cant'))+'"><div class="shead"><div><div class="n">'+u.n+'</div><div class="cls">Level '+lv+' / 8</div></div><span class="tag">'+(max?'MAX':'$'+fmt(price))+'</span></div><div class="d">'+u.d+'</div><div class="lvbox">'+'<i class="f"></i>'.repeat(lv)+'<i></i>'.repeat(8-lv)+'</div><button class="buy" data-u="'+k+'">'+(max?'—':'BUY')+'</button></div>';}}
 else if(shopTab==='p'){
 for(const k in PERKS){const p=PERKS[k],own=SV.perks[k];
-h+='<div class="srow '+(own?'own':(SV.cash>=p.p?'':'cant'))+'"><div class="info"><div class="n">'+p.n+'</div><div class="d">'+p.d+'</div></div><div class="p">'+(own?'OWNED':'$'+fmt(p.p))+'</div><button class="buy" data-p="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
+h+='<div class="srow '+(own?'own':(SV.cash>=p.p?'':'cant'))+'"><div class="shead"><div><div class="n">'+p.n+'</div><div class="cls">Perk</div></div><span class="tag">'+(own?'OWNED':'$'+fmt(p.p))+'</span></div><div class="d">'+p.d+'</div><button class="buy" data-p="'+k+'">'+(own?'—':'BUY')+'</button></div>';}}
 else if(shopTab==='m'){
 if(SV.laser){
-h+='<div class="srow own"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[SV.laser].c+'"></span>LASER SIGHT — '+LASERS[SV.laser].n+'</div><div class="d">-30% spread on all weapons. Change color below for $125.</div></div><div class="p">EQUIPPED</div></div>';
+h+='<div class="srow own"><div class="shead"><div><div class="n"><span class="swdot" style="background:'+LASERS[SV.laser].c+'"></span> LASER SIGHT — '+LASERS[SV.laser].n+'</div><div class="cls">Equipped</div></div><span class="tag">ACTIVE</span></div><div class="d">-30% spread on all weapons. Change color below for $125.</div></div>';
 for(const k in LASERS){if(k===SV.laser)continue;
-h+='<div class="srow '+(SV.cash>=125?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>RECOLOR — '+LASERS[k].n+'</div><div class="d">Same effect, different beam color. Pure style.</div></div><div class="p">$125</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
+h+='<div class="srow '+(SV.cash>=125?'':'cant')+'"><div class="shead"><div><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span> RECOLOR — '+LASERS[k].n+'</div><div class="cls">Cosmetic</div></div><span class="tag">$125</span></div><div class="d">Same effect, different beam color. Pure style.</div><button class="buy" data-lc="'+k+'">SWAP</button></div>';}}
 else{
 for(const k in LASERS){
-h+='<div class="srow '+(SV.cash>=LASER_PRICE?'':'cant')+'"><div class="info"><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span>LASER SIGHT — '+LASERS[k].n+'</div><div class="d">-30% spread on every weapon. All colors identical — pick your style.</div></div><div class="p">$'+fmt(LASER_PRICE)+'</div><button class="buy" data-l="'+k+'">BUY</button></div>';}}
+h+='<div class="srow '+(SV.cash>=LASER_PRICE?'':'cant')+'"><div class="shead"><div><div class="n"><span class="swdot" style="background:'+LASERS[k].c+'"></span> LASER SIGHT — '+LASERS[k].n+'</div><div class="cls">Weapon Mod</div></div><span class="tag">$'+fmt(LASER_PRICE)+'</span></div><div class="d">-30% spread on every weapon. All colors identical — pick your style.</div><button class="buy" data-l="'+k+'">BUY</button></div>';}}
 for(const k of ALLW){if(SV.weapons.includes(k))continue;
 const w=WEAP[k],has=SV.mods[k]&&SV.mods[k].mag;
 if(has)continue;
-h+='<div class="srow '+(SV.cash>=MAGMOD_PRICE?'':'cant')+'"><div class="info"><div class="n">EXTENDED MAG — '+w.n+'</div><div class="d">+40% capacity ('+w.mag+' → '+Math.round(w.mag*1.4)+'). Attaches to this weapon only.</div></div><div class="p">$'+fmt(MAGMOD_PRICE)+'</div><button class="buy" data-mm="'+k+'">BUY</button></div>';}}
+h+='<div class="srow '+(SV.cash>=MAGMOD_PRICE?'':'cant')+'"><div class="shead"><div><div class="n">EXTENDED MAG — '+w.n+'</div><div class="cls">Weapon Mod</div></div><span class="tag">$'+fmt(MAGMOD_PRICE)+'</span></div><div class="d">+40% capacity ('+w.mag+' → '+Math.round(w.mag*1.4)+'). Attaches to this weapon only.</div><button class="buy" data-mm="'+k+'">BUY</button></div>';}}
 else{
 const canField=shopRun&&R&&(R.won||R.over);
 if(!canField){
-h+='<div class="srow own"><div class="info"><div class="n">FIELD SUPPLIES UNAVAILABLE</div><div class="d">Medical supplies are issued between sectors — clear a sector first, or use the depot after your next run.</div></div><div class="p">—</div></div>';
+h+='<div class="srow own"><div class="shead"><div><div class="n">FIELD SUPPLIES UNAVAILABLE</div><div class="cls">Depot</div></div><span class="tag">—</span></div><div class="d">Medical supplies are issued between sectors — clear a sector first, or use the depot after your next run.</div></div>';
 }else{
 const st=stats(),cur=Math.ceil(R.P.hp);
 const arCap=Math.max(1,Math.max(R.st.armorMax,R.P.armor));
 const healP=Math.max(50,Math.round((st.maxHp-cur)*2.5));
-h+='<div class="srow '+(SV.cash>=healP&&cur<Math.round(st.maxHp)?'':'cant')+'"><div class="info"><div class="n">FIELD SURGERY</div><div class="d">Restore HP to full (now '+cur+'/'+Math.round(st.maxHp)+')</div></div><div class="p">'+(cur>=Math.round(st.maxHp)?'FULL':'$'+fmt(healP))+'</div><button class="buy" data-s="heal">BUY</button></div>';
-h+='<div class="srow '+(SV.cash>=200&&R.P.armor<arCap?'':'cant')+'"><div class="info"><div class="n">ARMOR PLATE</div><div class="d">Fill armor to '+arCap+'</div></div><div class="p">'+(R.P.armor>=arCap?'FULL':'$200')+'</div><button class="buy" data-s="armor">BUY</button></div>';}}
+h+='<div class="srow '+(SV.cash>=healP&&cur<Math.round(st.maxHp)?'':'cant')+'"><div class="shead"><div><div class="n">FIELD SURGERY</div><div class="cls">Medical</div></div><span class="tag">'+(cur>=Math.round(st.maxHp)?'FULL':'$'+fmt(healP))+'</span></div><div class="d">Restore HP to full (now '+cur+'/'+Math.round(st.maxHp)+')</div><button class="buy" data-s="heal">BUY</button></div>';
+h+='<div class="srow '+(SV.cash>=188&&R.P.armor<arCap?'':'cant')+'"><div class="shead"><div><div class="n">ARMOR PLATE</div><div class="cls">Medical</div></div><span class="tag">'+(R.P.armor>=arCap?'FULL':'$188')+'</span></div><div class="d">Fill armor to '+arCap+'</div><button class="buy" data-s="armor">BUY</button></div>';}}
  $('#shopList').innerHTML=h;
  $$('#shopList .buy').forEach(b=>b.onclick=()=>{
 const k=b.dataset.w,u=b.dataset.u,p=b.dataset.p,s=b.dataset.s,l=b.dataset.l,lc=b.dataset.lc,mm=b.dataset.mm;
@@ -2435,6 +2443,39 @@ SV.weapons.push(k);SFX.buy();
 if(w.joke)award('stupid');
 if(SV.laser){if(!SV.mods[k])SV.mods[k]={};SV.mods[k].laser=true;}
 if(R){R.P.weapons=SV.weapons.slice();R.P.ammo[k]=magOf(k);}}
+else if(u){const up=UPG[u],lv=SV.upg[u],price=Math.round(up.base*Math.pow(1.3,lv));
+if(lv>=8)return SFX.deny();if(SV.cash<price)return SFX.deny();
+SV.cash-=price;SV.upg[u]++;SFX.buy();if(SV.upg[u]>=8)award('maxed');}
+else if(p){const pk=PERKS[p];if(SV.cash<pk.p)return SFX.deny();
+SV.cash-=pk.p;SV.perks[p]=true;SFX.buy();toast(pk.n+' LEARNED','gold');
+if(Object.keys(SV.perks).length>=3)award('perks3');}
+else if(l){if(SV.cash<LASER_PRICE)return SFX.deny();
+SV.cash-=LASER_PRICE;SV.laser=l;
+if(!SV.mods)SV.mods={};
+for(const wk of SV.weapons){if(!SV.mods[wk])SV.mods[wk]={};SV.mods[wk].laser=true;}
+SFX.buy();toast(LASERS[l].n+' LASER SIGHT — FITTED TO ALL WEAPONS','gold');}
+else if(lc){if(SV.cash<125)return SFX.deny();
+SV.cash-=125;SV.laser=lc;SFX.buy();toast('BEAM RECOLOR — '+LASERS[lc].n,'gold');}
+else if(mm){if(!SV.weapons.includes(mm))return SFX.deny();
+if(SV.cash<MAGMOD_PRICE)return SFX.deny();
+SV.cash-=MAGMOD_PRICE;
+if(!SV.mods[mm])SV.mods[mm]={};SV.mods[mm].mag=true;
+if(R&&R.P.cur===mm)R.P.ammo[mm]=magOf(mm);
+SFX.buy();toast('EXTENDED MAG — '+WEAP[mm].n,'gold');}
+else if(s==='heal'){
+const canField=shopRun&&R&&(R.won||R.over);
+if(!canField)return SFX.deny();
+if(R.P.hp>=R.P.maxHp-5){SFX.deny();toast('ALREADY AT FULL HEALTH','bad');return;}
+const st=stats(),cost=Math.max(50,Math.round((st.maxHp-R.P.hp)*2.5));
+if(SV.cash<cost)return SFX.deny();SV.cash-=cost;R.P.hp=st.maxHp;SFX.buy();}
+else if(s==='armor'){
+const canField=shopRun&&R&&(R.won||R.over);
+if(!canField)return SFX.deny();
+const cap=Math.max(stats().armorMax,R.P.armor);
+if(R.P.armor>=cap){SFX.deny();toast('ARMOR ALREADY FULL','bad');return;}
+if(SV.cash<188)return SFX.deny();SV.cash-=188;R.P.armor=cap;SFX.buy();}
+checkAch();save();renderShop();updateHUD();});
+if(R)R.st=stats();}
 else if(u){const up=UPG[u],lv=SV.upg[u],price=Math.round(up.base*Math.pow(1.3,lv));
 if(lv>=8)return SFX.deny();if(SV.cash<price)return SFX.deny();
 SV.cash-=price;SV.upg[u]++;SFX.buy();if(SV.upg[u]>=8)award('maxed');}
