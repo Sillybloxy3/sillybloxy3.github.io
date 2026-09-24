@@ -2191,7 +2191,6 @@ ctx.rotate(-ang);
 ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
 ctx.fillText(dd+'m',0,20);
 ctx.restore();}
-const bri=SET.bri/100;
 if(bri!==1){ctx.fillStyle=bri>1?'rgba(200,210,230,'+clamp((bri-1)*.4,0,.1)+')':'rgba(0,0,0,'+clamp(1-bri,0,.1)+')';
 ctx.fillRect(0,0,W,H);}
 if(SET.light==='high'){
