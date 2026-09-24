@@ -599,7 +599,7 @@ medic:{n:'FIELD MEDIC',d:'Regenerate HP out of combat',p:1225},
 adrenaline:{n:'ADRENALINE',d:'Dash cooldown -30%',p:1300}};
 const UPG={
 dmg:{n:'DAMAGE',d:'+6% weapon damage / level',base:1000},
-rate:{n:'FIRE RATE',d:'+5% fire rate / level',base1000},
+rate:{n:'FIRE RATE',d:'+5% fire rate / level',base:1000},
 hp:{n:'MAX HP',d:'+20 max health / level',base:1000},
 spd:{n:'SPEED',d:'+4% move speed / level',base:1000},
 armor:{n:'ARMOR PLATING',d:'+25 armor / level',base:1000},
