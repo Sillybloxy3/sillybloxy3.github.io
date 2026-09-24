@@ -2262,18 +2262,17 @@ ctx.moveTo(rx-7,ry+7);ctx.lineTo(rx-3,ry+3);ctx.moveTo(rx+7,ry+7);ctx.lineTo(rx+
 ctx.stroke();}}
 const bri=SET.bri/100;
 if(ST==='play'&&R.zoms.filter(z=>!z.dead).length<=5){
- for(const z of R.zoms){if(z.dead)continue;
-  const sx=z.x-R.camX,sy=z.y-R.camY;
-  const dm=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
-  if(sx>0&&sx<W&&sy>0&&sy<H){
-    const pu=.5+.5*Math.sin(performance.now()/180);
-    ctx.strokeStyle='rgba(232,134,58,'+(.35+.45*pu)+')';ctx.lineWidth=2;
-    ctx.beginPath();ctx.arc(sx,sy,z.r+8+pu*5,0,6.29);ctx.stroke();
-    ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
-    ctx.fillText(dm+'m',sx,sy-z.r-14);
-    continue;}
-  const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
-  /* ...existing edge-arrow code continues unchanged... */
+for(const z of R.zoms){if(z.dead)continue;
+const sx=z.x-R.camX,sy=z.y-R.camY;
+if(sx>0&&sx<W&&sy>0&&sy<H){
+const dm=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
+const pu=.5+.5*Math.sin(performance.now()/180);
+ctx.strokeStyle='rgba(232,134,58,'+(.35+.45*pu).toFixed(2)+')';ctx.lineWidth=2;
+ctx.beginPath();ctx.arc(sx,sy,z.r+8+pu*5,0,6.29);ctx.stroke();
+ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
+ctx.fillText(dm+'m',sx,sy-z.r-14);
+continue;}
+const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
 const ang=Math.atan2(sy-cy2,sx-cx2);
 const dd=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
 ctx.save();ctx.translate(cx2,cy2);ctx.rotate(ang);
@@ -2282,7 +2281,7 @@ ctx.beginPath();ctx.moveTo(10,0);ctx.lineTo(-6,-7);ctx.lineTo(-6,7);ctx.closePat
 ctx.rotate(-ang);
 ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
 ctx.fillText(dd+'m',0,20);
-ctx.restore();}
+ctx.restore();}}
 if(bri!==1){ctx.fillStyle=bri>1?'rgba(200,210,230,'+clamp((bri-1)*.4,0,.1)+')':'rgba(0,0,0,'+clamp(1-bri,0,.1)+')';
 ctx.fillRect(0,0,W,H);}
 if(SET.light==='high'){
