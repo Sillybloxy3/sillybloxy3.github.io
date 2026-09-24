@@ -321,7 +321,7 @@ body.contrast .ov{background:rgba(0,3,1,.95)}
 .wcard{padding:7px 10px 8px}}
 @media (max-height:460px){.hudTC{display:none}}
 @media (hover:none){.mbtn:hover{padding-left:8px}}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 /* ==== MAIN MENU v2 ==== */
 .mwrap{width:min(1180px,96vw);margin:auto;display:grid;grid-template-columns:1.15fr .85fr;background:var(--pan);border:1px solid var(--ln);border-radius:4px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:slam .22s ease-out}
 .mwrap::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 84px),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 84px)}
