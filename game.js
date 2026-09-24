@@ -379,6 +379,25 @@ lose(){[220,180,140,100].forEach((f,i)=>t(f,.3,{ty:'triangle',v:.12,at:i*.2,ch:'
 /* ==================== AUDIO — AMBIENT MUSIC ==================== */
 const MUSIC=(()=>{let c=null,bus=null,mB=null,gB=null,delay=null,timer=false,rBuf=null,rainG=null,
 mood='menu',hot=false,nPad=0,nPl=0,nBeat=0,nEr=0,nGP=0,nRu=0,chI=0,gI=0,vol=.45;
+const SONGS={menu:'music/menu.mp3',game:'music/game.mp3',boss:'music/boss.mp3',last:'music/patient_zero.mp3',holdout:'music/holdout.mp3'};
+const songBuf={},songNodes={};let songG=null,songNow=null;
+async function loadSongs(){if(!c)return;
+ for(const k in SONGS){if(songBuf[k])continue;
+  try{const r=await fetch(SONGS[k]);if(!r.ok)continue;
+   songBuf[k]=await c.decodeAudioData(await r.arrayBuffer());}catch(e){}}
+ const k=songNow;if(k){songNow=null;playSong(k);}}
+function playSong(k){
+ if(songNow===k)return;
+ songNow=k;if(!c)return;const t=c.currentTime;
+ for(const id in songNodes){try{songNodes[id].g.gain.setTargetAtTime(0,t,.5);
+  const s=songNodes[id].s;setTimeout(()=>{try{s.stop()}catch(e){}},1500);}catch(e){}}
+ for(const id in songNodes)delete songNodes[id];
+ if(!songBuf[k])return;
+ if(!songG){songG=c.createGain();songG.connect(bus);}
+ songG.gain.setTargetAtTime(.85,t,.4);
+ const s=c.createBufferSource();s.buffer=songBuf[k];s.loop=true;
+ const g=c.createGain();s.connect(g);g.connect(songG);s.start(t+.05);
+ songNodes[k]={s,g};}
 const CHD=[[110,130.81,164.81,220],[87.31,110,130.81,164.81],[98,130.81,164.81,196],[82.41,98,123.47,164.81]];
 const GCH=[[73.42,87.31,110,146.83],[65.41,82.41,98,130.81],[77.78,98,116.54,155.56]];
 const PENT=[220,261.63,293.66,329.63,392,440,523.25,587.33];
@@ -497,16 +516,17 @@ delay.connect(dfl);dfl.connect(fb);fb.connect(delay);
 const dout=c.createGain();dout.gain.value=.5;delay.connect(dout);dout.connect(mB);
 buildStatic();
 timer=true;setInterval(tick,250);
-this.setVol(SET.music);
+this.setVol(SET.music);loadSongs();
 this.setMood(mood);}catch(e){}},
 resume(){try{if(c&&c.state==='suspended')c.resume();}catch(e){}},
 setVol(v){vol=v;if(bus&&c)bus.gain.setTargetAtTime((SFX.muted||SFX.bg)?0:(v||0)*.55*(SET.master||1),c.currentTime,.12);},
 setRain(on){if(rainG&&c)rainG.gain.setTargetAtTime(on?.05:0,c.currentTime,.8);},
-setMood(m){mood=m;hot=false;
-if(c){const t=c.currentTime;
-mB.gain.setTargetAtTime(m==='menu'?1:0,t,.7);
-gB.gain.setTargetAtTime(m==='game'?.95:0,t,.7);
-nPad=t+.5;nPl=t+rnd(1,3);nBeat=t+.4;nEr=t+rnd(3,6);nGP=t+rnd(2,5);nRu=t+rnd(5,9);}},
+setMood(m){const real=(m==='boss'||m==='last'||m==='holdout')?'game':m;hot=false;
+ if(c){const t=c.currentTime;
+  mB.gain.setTargetAtTime(real==='menu'?1:0,t,.7);
+  gB.gain.setTargetAtTime(real==='game'?.95:0,t,.7);
+  nPad=t+.5;nPl=t+md(1,3);nBeat=t+4;nEr=t+rnd(3,6);nGP=t+rnd(2,5);nRu=t+md(5,9);}
+ playSong(m);},
 hot(h){hot=!!h;}};})();
 function applyAudio(){SFX.setVol(SET.master);SFX.setSfx(SET.sfx);MUSIC.setVol(SET.music);
 if(SFX.CH.w){SFX.CH.w.gain.value=SET.weap;SFX.CH.z.gain.value=SET.zomb;SFX.CH.u.gain.value=SET.uiS;SFX.CH.a.gain.value=SET.amb;}}
@@ -1016,10 +1036,13 @@ solids.push(c.v?{x:off-4,y:sy,w:8,h:26,fence:1,hp:26}:{x:sx,y:off-4,w:26,h:8,fen
 if(c.v)sy+=26;else sx+=26;}
 break;}}}
 const hz=[];
+const hzBad=(x,y)=>inBuilding(x,y)||pointInBlocks(x,y)
+||inBuilding(x+14,y)||inBuilding(x-14,y)||inBuilding(x,y+14)||inBuilding(x,y-14)
+||pointInBlocks(x+14,y)||pointInBlocks(x-14,y)||pointInBlocks(x,y+14)||pointInBlocks(x,y-14);
 if(n>=3){const hcount=Math.min(2+Math.floor(n/10),7);
 for(let i=0;i<hcount;i++){let hx,hy,ht2=0;
 do{hx=sr()*(WW-240)+120;hy=sr()*(WH-240)+120;ht2++;}
-while(ht2<40&&(Math.hypot(hx-WW/2,hy-WH/2)<220||inBuilding(hx,hy)||pointInBlocks(hx,hy)||hitsRoad(hx,hy,10,10)||hz.some(o=>d2({x:hx,y:hy},o)<150*150)));
+while(ht2<40&&(Math.hypot(hx-WW/2,hy-WH/2)<220||hzBad(hx,hy)||hitsRoad(hx,hy,10,10)||hz.some(o=>d2({x:hx,y:hy},o)<150*150)));
 hz.push({x:hx,y:hy,type:pick(['barrel','arc','vent','spikes','steam','crate']),t:sr()*9,cd:0,dead:false});}}
 const fogz=[];
 if(n>=6)for(let i=0;i<3;i++)fogz.push({x:sr()*(WW-300)+150,y:sr()*(WH-300)+150,r:rnd(120,200)});
@@ -1049,7 +1072,7 @@ rainSpl.length=0;
  $('#hud').classList.remove('lowhp');
 ST='play';
 document.body.classList.remove('inmenu');
-MUSIC.setMood('game');
+MUSIC.setMood(info.isSurv?'holdout':'game');
  $$('.ov').forEach(o=>o.classList.remove('on'));
 if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
 showHud(true);updateHUD();
@@ -1067,6 +1090,7 @@ else{toast('OBJECTIVE — PURGE ALL HOSTILES');sub('[radio] sweep and clear the 
 function magOf(w){return Math.round(WEAP[w].mag*(SV.mods[w]&&SV.mods[w].mag?1.4:1));}
 /* Patient Zero gets the only full cinematic intro; everyone else standard */
 function bossIntro(key,label){
+MUSIC.setMood(key===175?'last':'boss');
 const B=BOSSES[key];
  $('#bossIT').textContent=B.n;$('#bossIS').textContent=B.sub;
  $('#bossIH').innerHTML=label+' · STUDY ITS WIND-UPS. EXPLOIT THE OPENINGS.';
@@ -1563,13 +1587,55 @@ if(z.low){if(!z.steer)z.steer=Math.random()<.5?1:-1;
 moveEntity(z,-vy/vl*z.steer*z.sp*.7*dt,vx/vl*z.steer*z.sp*.7*dt,z.r);}else z.steer=0;
 const moved=Math.hypot(z.x-px0,z.y-py0);
 z.walk+=moved;
-if(moved<Math.max(.4,dt*z.sp*.3)){z.stuckT=(z.stuckT||0)+dt;
-if(z.stuckT>4){const wr=segAt(z.x+dx/d*(z.r+6),z.y+dy/d*(z.r+6));
-if(wr&&wr.hp!==undefined){wr.hp-=15*dt;
+/* === BOSS TERRAIN DEMOLITION v2 — nothing is cover anymore === */
+const wantMoved=z.sp*dt;
+if(moved<wantMoved*.9){
+  const reach=z.r+18+(z.chv>0?24:0);
+  let seg=null;
+  for(let pi=0;pi<3&&!seg;pi++){
+    const aa=z.ang+(pi-1)*.45;
+    seg=segAt(z.x+Math.cos(aa)*reach,z.y+Math.sin(aa)*reach);
+  }
+  if(!seg)seg=segAt(z.x+vx*22,z.y+vy*22)||segAt(z.x+Math.cos(z.ang)*(z.r*8+12),z.y+Math.sin(z.ang)*(z.r*8+12));
+  if(seg){
+    if(seg.hp===undefined){seg.hp=Math.round((seg.w+seg.h)*2.2);seg.solid=1;}
+    const tier=z.boss>=175?300:(z.boss>=110?110:60);   // TUNE: chew dmg/sec
+    seg.hp-=(z.chv>0?tier*4:tier)*dt;
+    R.shk=Math.min(R.shk+(seg.fence?9:(seg.solid?7:5)),16);
+    if(Math.random()<.3){const a=rnd(0,6.28);
+      R.parts.push({x:seg.x+seg.w/2,y:seg.y+seg.h/2,vx:Math.cos(a)*md(40,160),vy:Math.sin(a)*md(40,160),life:.4,c:seg.fence?'#8a948a':(seg.solid?'#5a4a3a':(seg.rein?'#8ea6b8':'#c8c2a0')),r:rnd(1.5,3)});}
+    if(Math.random()<.06)SFX.crash();
+    if(seg.hp<=0){
+      if(seg.solid){
+        SFX.boom();R.shk=Math.min(R.shk+14,26);
+        for(let i=0;i<26;i++){const a=rnd(0,6.28);
+          R.parts.push({x:seg.x+rnd(0,seg.w),y:seg.y+rnd(0,seg.h),vx:Math.cos(a)*md(60,300),vy:Math.sin(a)*md(60,300),life:md(.5,1),c:pick(['#5a4a3a','#3a322a','#8a7a60']),r:rnd(2,5)});}
+        if(R.gctx){R.gctx.fillStyle='rgba(24,20,14,.6)';
+          for(let k=0;k<40;k++)R.gctx.fillRect(seg.x+rnd(-6,seg.w),seg.y+rnd(-6,seg.h),rnd(10,34),rnd(8,26));}
+        if(!z.bldT||R.time-z.bldT>4){z.bldT=R.time;toast('THE ALPHA BREACHED A BUILDING','bad');}
+      }
+      destroySeg(seg);
+    }
+  }
+}
+if(moved<Math.max(.5,dt*z.sp*2.5)){
+z.stuckT=(z.stuckT||0)+dt;
+const chew=R.zoms.filter(o=>!o.dead).length<=5?60:16;
+if(z.stuckT>2){
+const wr=segAt(z.x+dx/d*(z.r+7),z.y+dy/d*(z.r+7))||segAt(z.x+Math.cos(z.ang)*(z.r+7),z.y+Math.sin(z.ang)*(z.r+7));
+if(wr&&wr.hp!==undefined){wr.hp-=chew*dt;
 if(Math.random()<.2)R.parts.push({x:z.x+dx/d*z.r,y:z.y+dy/d*z.r,vx:rnd(-40,40),vy:rnd(-40,40),life:.3,c:'#8a948a',r:2});
 if(Math.random()<.03)SFX.crash();
-if(wr.hp<=0){destroySeg(wr);z.stuckT=0;}}}}
-else z.stuckT=0;
+if(wr.hp<=0)destroySeg(wr);}
+if(z.stuckT>9){
+let bx2=z.x,by2=z.y,found=false;
+for(let rad=40;rad<420&&!found;rad+=40)for(let aa=0;aa<6.28;aa+=.5){
+const tx=z.x+Math.cos(aa)*rad,ty=z.y+Math.sin(aa)*rad;
+if(tx>40&&ty>40&&tx<R.WW-40&&ty<R.WH-40&&!pointInBlocks(tx,ty)&&!inBuilding(tx,ty)&&d2({x:tx,y:ty},P)>80*80){bx2=tx;by2=ty;found=true;break;}}
+for(let i=0;i<10;i++)R.parts.push({x:z.x,y:z.y,vx:rnd(-80,80),vy:rnd(-80,80),life:.5,c:'#9ab04a',r:3});
+z.x=bx2;z.y=by2;z.stuckT=0;}
+}
+}else z.stuckT=0;
 /* ---- bullets ---- */
 R.buls=R.buls.filter(b=>{
 const spd=Math.hypot(b.vx,b.vy);
@@ -1688,7 +1754,11 @@ if(z.novaT>0){z.novaT-=dt;if(z.novaT<=0)novaBurst(z);}
 for(const k in z.cd)z.cd[k]-=dt;
 if(z.stun>0)return;
 let vx=dx/d,vy=dy/d;
-const sp=z.sp*(z.phase===2?1.25:1);
+if(d>760){z.rageT=(z.rageT||0)+dt;
+if(z.rageT>4&&!(z.cd.rg>0)){z.rageT=0;z.cd.rg=9;z.rg=3;SFX.roar();sub('[roar] the alpha is done being walked around');}}
+else z.rageT=Math.max(0,z.rageT-dt*2);
+if(z.rg>0)z.rg-=dt;
+const sp=z.sp*(z.phase===2?1.25:1)*(z.rg>0?1.9:1);
 if(z.ab.includes('charge')&&!(z.cd.chg>0)&&d<560){
 z.wind+=dt;
 if(z.wind<.7){vx=0;vy=0;z.chA=Math.atan2(dy,dx);
@@ -1706,18 +1776,32 @@ const px0=z.x,py0=z.y;
 moveEntity(z,vx*sp*dt,vy*sp*dt,z.r*.8);
 const moved=Math.hypot(z.x-px0,z.y-py0);
 z.walk+=moved;
-/* === BOSS TERRAIN DEMOLITION === */
-const wantMoved=sp*dt;
-if(moved<wantMoved*.45){
-const seg=segAt(z.x+Math.cos(z.ang)*(z.r*.8+12),z.y+Math.sin(z.ang)*(z.r*.8+12))||segAt(z.x+vx*22,z.y+vy*22);
-if(seg&&seg.hp!==undefined){
-const tier=z.boss>=175?150:(z.boss>=110?85:45);
+/* === BOSS TERRAIN DEMOLITION v2 — nothing is cover anymore === */
+const wantMoved=z.sp*dt;
+if(moved<wantMoved*.9){
+const reach=z.r+18+(z.chv>0?24:0);
+let seg=null;
+for(let pi=0;pi<3&&!seg;pi++){
+const aa=z.ang+(pi-1)*.45;
+seg=segAt(z.x+Math.cos(aa)*reach,z.y+Math.sin(aa)*reach);}
+if(!seg)seg=segAt(z.x+vx*22,z.y+vy*22)||segAt(z.x+Math.cos(z.ang)*(z.r*8+12),z.y+Math.sin(z.ang)*(z.r*8+12));
+if(seg){
+if(seg.hp===undefined){seg.hp=Math.round((seg.w+seg.h)*2.2);seg.solid=1;}
+const tier=z.boss>=175?300:(z.boss>=110?110:60);
 seg.hp-=(z.chv>0?tier*4:tier)*dt;
-R.shk=Math.min(R.shk+(seg.fence?.9:.5),16);
+R.shk=Math.min(R.shk+(seg.fence?9:(seg.solid?7:5)),16);
 if(Math.random()<.3){const a=rnd(0,6.28);
-R.parts.push({x:seg.x+seg.w/2,y:seg.y+seg.h/2,vx:Math.cos(a)*md(40,160),vy:Math.sin(a)*md(40,160),life:.4,c:seg.fence?'#8a948a':(seg.rein?'#8ea6b8':'#c8c2a0'),r:rnd(1.5,3)});}
-if(Math.random()<.05)SFX.crash();
-if(seg.hp<=0)destroySeg(seg);}}
+R.parts.push({x:seg.x+seg.w/2,y:seg.y+seg.h/2,vx:Math.cos(a)*md(40,160),vy:Math.sin(a)*md(40,160),life:.4,c:seg.fence?'#8a948a':(seg.solid?'#5a4a3a':(seg.rein?'#8ea6b8':'#c8c2a0')),r:rnd(1.5,3)});}
+if(Math.random()<.06)SFX.crash();
+if(seg.hp<=0){
+if(seg.solid){
+SFX.boom();R.shk=Math.min(R.shk+14,26);
+for(let i=0;i<26;i++){const a=rnd(0,6.28);
+R.parts.push({x:seg.x+rnd(0,seg.w),y:seg.y+rnd(0,seg.h),vx:Math.cos(a)*md(60,300),vy:Math.sin(a)*md(60,300),life:md(.5,1),c:pick(['#5a4a3a','#3a322a','#8a7a60']),r:rnd(2,5)});}
+if(R.gctx){R.gctx.fillStyle='rgba(24,20,14,.6)';
+for(let k=0;k<40;k++)R.gctx.fillRect(seg.x+rnd(-6,seg.w),seg.y+rnd(-6,seg.h),rnd(10,34),rnd(8,26));}
+if(!z.bldT||R.time-z.bldT>4){z.bldT=R.time;toast('THE ALPHA BREACHED A BUILDING','bad');}}
+destroySeg(seg);}}}
 /* ==================== WEAPONS ==================== */
 function shoot(){
 const P=R.P,w=WEAP[P.cur];
@@ -2178,10 +2262,18 @@ ctx.moveTo(rx-7,ry+7);ctx.lineTo(rx-3,ry+3);ctx.moveTo(rx+7,ry+7);ctx.lineTo(rx+
 ctx.stroke();}}
 const bri=SET.bri/100;
 if(ST==='play'&&R.zoms.filter(z=>!z.dead).length<=5){
-for(const z of R.zoms){if(z.dead)continue;
-const sx=z.x-R.camX,sy=z.y-R.camY;
-if(sx>0&&sx<W&&sy>0&&sy<H)continue;
-const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
+ for(const z of R.zoms){if(z.dead)continue;
+  const sx=z.x-R.camX,sy=z.y-R.camY;
+  const dd=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
+  if(sx>0&&sx<W&&sy>0&&sy<H){
+    const pu=.5+.5*Math.sin(performance.now()/180);
+    ctx.strokeStyle='rgba(232,134,58,'+(.35+.45*pu)+')';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(sx,sy,z.r+8+pu*5,0,6.29);ctx.stroke();
+    ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
+    ctx.fillText(dd+'m',sx,sy-z.r-14);
+    continue;}
+  const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
+  /* ...existing edge-arrow code continues unchanged... */
 const ang=Math.atan2(sy-cy2,sx-cx2);
 const dd=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
 ctx.save();ctx.translate(cx2,cy2);ctx.rotate(ang);
@@ -2195,6 +2287,25 @@ if(bri!==1){ctx.fillStyle=bri>1?'rgba(200,210,230,'+clamp((bri-1)*.4,0,.1)+')':'
 ctx.fillRect(0,0,W,H);}
 if(SET.light==='high'){
 const dark=Math.max(0,.45-(bri-1)*.6);
+const SONGS={menu:'music/menu.mp3',game:'music/game.mp3',boss:'music/boss.mp3',last:'music/patient_zero.mp3',holdout:'music/holdout.mp3'};
+const songBuf={},songNodes={};let songG=null,songNow=null;
+async function loadSongs(){if(!c)return;
+for(const k in SONGS){if(songBuf[k])continue;
+try{const r=await fetch(SONGS[k]);if(!r.ok)continue;
+songBuf[k]=await c.decodeAudioData(await r.arrayBuffer());}catch(e){}}
+const k=songNow;if(k){songNow=null;playSong(k);}}
+function playSong(k){
+if(songNow===k)return;
+songNow=k;if(!c)return;const t=c.currentTime;
+for(const id in songNodes){try{songNodes[id].g.gain.setTargetAtTime(0,t,.5);
+const s=songNodes[id].s;setTimeout(()=>{try{s.stop()}catch(e){}},1500);}catch(e){}}
+for(const id in songNodes)delete songNodes[id];
+if(!songBuf[k])return;
+if(!songG){songG=c.createGain();songG.connect(bus);}
+songG.gain.setTargetAtTime(.85,t,.4);
+const s2=c.createBufferSource();s2.buffer=songBuf[k];s2.loop=true;
+const g2=c.createGain();s2.connect(g2);g2.connect(songG);s2.start(t+.05);
+songNodes[k]={s:s2,g:g2};}
 const lg=ctx.createRadialGradient(P.x-R.camX,P.y-R.camY,Math.min(W,H)*.4*(1-vloss),P.x-R.camX,P.y-R.camY,Math.max(W,H)*.85*(1-vloss));
 lg.addColorStop(0,'rgba(2,4,8,0)');lg.addColorStop(1,'rgba(1,2,4,'+dark+')');
 ctx.fillStyle=lg;ctx.fillRect(0,0,W,H);}
