@@ -2264,13 +2264,13 @@ const bri=SET.bri/100;
 if(ST==='play'&&R.zoms.filter(z=>!z.dead).length<=5){
  for(const z of R.zoms){if(z.dead)continue;
   const sx=z.x-R.camX,sy=z.y-R.camY;
-  const dd=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
+  const dm=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
   if(sx>0&&sx<W&&sy>0&&sy<H){
     const pu=.5+.5*Math.sin(performance.now()/180);
     ctx.strokeStyle='rgba(232,134,58,'+(.35+.45*pu)+')';ctx.lineWidth=2;
     ctx.beginPath();ctx.arc(sx,sy,z.r+8+pu*5,0,6.29);ctx.stroke();
     ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
-    ctx.fillText(dd+'m',sx,sy-z.r-14);
+    ctx.fillText(dm+'m',sx,sy-z.r-14);
     continue;}
   const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
   /* ...existing edge-arrow code continues unchanged... */
