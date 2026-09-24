@@ -1019,7 +1019,7 @@ const hz=[];
 if(n>=3){const hcount=Math.min(2+Math.floor(n/10),7);
 for(let i=0;i<hcount;i++){let hx,hy,ht2=0;
 do{hx=sr()*(WW-240)+120;hy=sr()*(WH-240)+120;ht2++;}
-while(ht2<40&&(Math.hypot(hx-WW/2,hy-WH/2)<220||inBuilding(hx,hy)||hitsRoad(hx,hy,10,10)||hz.some(o=>d2({x:hx,y:hy},o)<150*150)));
+while(ht2<40&&(Math.hypot(hx-WW/2,hy-WH/2)<220||inBuilding(hx,hy)||pointInBlocks(hx,hy)||hitsRoad(hx,hy,10,10)||hz.some(o=>d2({x:hx,y:hy},o)<150*150)));
 hz.push({x:hx,y:hy,type:pick(['barrel','arc','vent','spikes','steam','crate']),t:sr()*9,cd:0,dead:false});}}
 const fogz=[];
 if(n>=6)for(let i=0;i<3;i++)fogz.push({x:sr()*(WW-300)+150,y:sr()*(WH-300)+150,r:rnd(120,200)});
@@ -1563,14 +1563,13 @@ if(z.low){if(!z.steer)z.steer=Math.random()<.5?1:-1;
 moveEntity(z,-vy/vl*z.steer*z.sp*.7*dt,vx/vl*z.steer*z.sp*.7*dt,z.r);}else z.steer=0;
 const moved=Math.hypot(z.x-px0,z.y-py0);
 z.walk+=moved;
-if(moved>1.2&&z.fast&&SET.particles&&!SET.reduced&&Math.random()<.35)
-R.parts.push({x:z.x-Math.cos(z.ang)*z.r*.5,y:z.y-Math.sin(z.ang)*z.r*.5,vx:rnd(-14,14),vy:rnd(-20,-6),life:.32,c:'#5f665c',r:2.4});
-if(z.rng){z.ft=(z.ft||md(1,2.4))-dt;
-if(z.ft<=0&&d<560&&los(z,P)){z.ft=2.3;
-R.globs.push({x:z.x,y:z.y,vx:dx/d*240,vy:dy/d*240,r:5,life:3,dmg:z.dmg});}}
-if(z.boom&&d<64&&z.fuse<0)z.fuse=3.25;
-if(d<z.r+P.r+2&&z.atk<=0&&z.fuse<0&&!winBetween(z,P)){z.atk=.8;hurtP(z.dmg);}}}
-R.zoms=R.zoms.filter(z=>z.hp>0&&!z.dead);
+if(moved<Math.max(.4,dt*z.sp*.3)){z.stuckT=(z.stuckT||0)+dt;
+if(z.stuckT>4){const wr=segAt(z.x+dx/d*(z.r+6),z.y+dy/d*(z.r+6));
+if(wr&&wr.hp!==undefined){wr.hp-=15*dt;
+if(Math.random()<.2)R.parts.push({x:z.x+dx/d*z.r,y:z.y+dy/d*z.r,vx:rnd(-40,40),vy:rnd(-40,40),life:.3,c:'#8a948a',r:2});
+if(Math.random()<.03)SFX.crash();
+if(wr.hp<=0){destroySeg(wr);z.stuckT=0;}}}}
+else z.stuckT=0;
 /* ---- bullets ---- */
 R.buls=R.buls.filter(b=>{
 const spd=Math.hypot(b.vx,b.vy);
@@ -1707,33 +1706,18 @@ const px0=z.x,py0=z.y;
 moveEntity(z,vx*sp*dt,vy*sp*dt,z.r*.8);
 const moved=Math.hypot(z.x-px0,z.y-py0);
 z.walk+=moved;
-if(moved>1&&z.chv>0&&SET.particles&&!SET.reduced&&Math.random()<.4)
-R.parts.push({x:z.x-Math.cos(z.ang)*z.r*.6,y:z.y-Math.sin(z.ang)*z.r*.6,vx:rnd(-16,16),vy:rnd(-22,-6),life:.35,c:'#5f665c',r:3});
-if(z.ab.includes('ring')&&!(z.cd.ring>0)){z.cd.ring=z.phase===2?2.6:3.6;SFX.boom();
-const n=10+z.phase*4;
-for(let i=0;i<n;i++){const a=i/n*6.283+z.t;
-R.globs.push({x:z.x,y:z.y,vx:Math.cos(a)*185,vy:Math.sin(a)*185,r:5,life:3.2,dmg:z.dmg*.6});}}
-if(z.ab.includes('spiral')){z.spA+=dt*(z.phase===2?3.4:2.4);z.spt-=dt;
-if(z.spt<=0){z.spt=.12;
-R.globs.push({x:z.x,y:z.y,vx:Math.cos(z.spA)*210,vy:Math.sin(z.spA)*210,r:4,life:3,dmg:z.dmg*.5});}}
-if(z.ab.includes('snipe')&&!(z.cd.snipe>0)&&d<620&&los(z,P)){z.cd.snipe=rnd(2.8,4.2);
-for(let i=0;i<3;i++){const a=Math.atan2(dy,dx)+rnd(-.06,.06);
-setTimeout(()=>{if(R&&!R.over&&!z.dead)R.globs.push({x:z.x,y:z.y,vx:Math.cos(a)*330,vy:Math.sin(a)*330,r:4,life:2.6,dmg:z.dmg*.7});},i*130);}}
-if(z.ab.includes('split')&&!(z.cd.spit>0)&&d<620&&los(z,P)){z.cd.spit=rnd(2.4,3.6);
-for(let i=0;i<5;i++){const a=Math.atan2(dy,dx)+(i-2)*.14;
-R.globs.push({x:z.x,y:z.y,vx:Math.cos(a)*250,vy:Math.sin(a)*250,r:5,life:3,dmg:z.dmg*.6});}}
-for(const ab of z.ab){
-if(!ab.startsWith('summon:'))continue;
-const key='su_'+ab;
-if(!(z.cd[key]>0)){z.cd[key]=z.phase===2?md(5,7):md(7,10);
-const type=ab.split(':')[1],n2=z.phase===2?3:2;
-for(let i=0;i<n2;i++)spawnZom(type,z.phase===2&&Math.random()<.3,false,false);
-toast(BOSSES[z.boss].n+' CALLS REINFORCEMENTS','bad');}}
-if(z.ab.includes('split')&&hpFrac<=.5&&!z.didSplit){z.didSplit=true;
-z.hp=z.mhp*.45;
-spawnBoss(z.boss,true,z.x+60,z.y,z.hpMul);
-toast('IT SPLITS!','bad');sub('[wet tearing] it splits in two');}
-if(d<z.r+P.r+2&&z.atk<=0&&!winBetween(z,P)){z.atk=.7;hurtP(z.dmg*(z.chv>0?1.6:1));}}
+/* === BOSS TERRAIN DEMOLITION === */
+const wantMoved=sp*dt;
+if(moved<wantMoved*.45){
+const seg=segAt(z.x+Math.cos(z.ang)*(z.r*.8+12),z.y+Math.sin(z.ang)*(z.r*.8+12))||segAt(z.x+vx*22,z.y+vy*22);
+if(seg&&seg.hp!==undefined){
+const tier=z.boss>=175?150:(z.boss>=110?85:45);
+seg.hp-=(z.chv>0?tier*4:tier)*dt;
+R.shk=Math.min(R.shk+(seg.fence?.9:.5),16);
+if(Math.random()<.3){const a=rnd(0,6.28);
+R.parts.push({x:seg.x+seg.w/2,y:seg.y+seg.h/2,vx:Math.cos(a)*md(40,160),vy:Math.sin(a)*md(40,160),life:.4,c:seg.fence?'#8a948a':(seg.rein?'#8ea6b8':'#c8c2a0'),r:rnd(1.5,3)});}
+if(Math.random()<.05)SFX.crash();
+if(seg.hp<=0)destroySeg(seg);}}
 /* ==================== WEAPONS ==================== */
 function shoot(){
 const P=R.P,w=WEAP[P.cur];
@@ -2192,6 +2176,21 @@ ctx.beginPath();
 ctx.moveTo(rx-7,ry-7);ctx.lineTo(rx-3,ry-3);ctx.moveTo(rx+7,ry-7);ctx.lineTo(rx+3,ry-3);
 ctx.moveTo(rx-7,ry+7);ctx.lineTo(rx-3,ry+3);ctx.moveTo(rx+7,ry+7);ctx.lineTo(rx+3,ry+3);
 ctx.stroke();}}
+const bri=SET.bri/100;
+if(ST==='play'&&R.zoms.filter(z=>!z.dead).length<=5){
+for(const z of R.zoms){if(z.dead)continue;
+const sx=z.x-R.camX,sy=z.y-R.camY;
+if(sx>0&&sx<W&&sy>0&&sy<H)continue;
+const cx2=clamp(sx,34,W-34),cy2=clamp(sy,34,H-34);
+const ang=Math.atan2(sy-cy2,sx-cx2);
+const dd=Math.round(Math.hypot(z.x-P.x,z.y-P.y)/10);
+ctx.save();ctx.translate(cx2,cy2);ctx.rotate(ang);
+ctx.fillStyle='rgba(232,134,58,'+(.55+.25*Math.sin(performance.now()/150))+')';
+ctx.beginPath();ctx.moveTo(10,0);ctx.lineTo(-6,-7);ctx.lineTo(-6,7);ctx.closePath();ctx.fill();
+ctx.rotate(-ang);
+ctx.fillStyle='rgba(236,229,216,.8)';ctx.font='700 10px "Chakra Petch"';ctx.textAlign='center';
+ctx.fillText(dd+'m',0,20);
+ctx.restore();}
 const bri=SET.bri/100;
 if(bri!==1){ctx.fillStyle=bri>1?'rgba(200,210,230,'+clamp((bri-1)*.4,0,.1)+')':'rgba(0,0,0,'+clamp(1-bri,0,.1)+')';
 ctx.fillRect(0,0,W,H);}
