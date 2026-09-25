@@ -1644,7 +1644,7 @@ for(let i=0;i<3;i++)R.parts.push({x:b.x,y:b.y,vx:rnd(-100,100),vy:rnd(-100,100),
 wr.hp-=wr.win?16:7;
 if(wr.hp<=0)destroySeg(wr);
 if(b.blast)bulletBlast(b.x,b.y,b.blast);
-return false;}
+return false;}}
 for(const z of R.zoms){
 if(z.dead)continue;
 const rr=z.r+b.r;
@@ -1669,10 +1669,11 @@ if(!best)break;
 for(let i=0;i<5;i++){const tt=i/4;
 R.parts.push({x:src.x+(best.x-src.x)*tt,y:src.y+(best.y-src.y)*tt,vx:rnd(-30,30),vy:rnd(-30,30),life:.18,c:'#8ad4ff',r:2});}
 hurtZ(best,b.dmg*.6,Math.atan2(best.y-src.y,best.x-src.x),false);
-used.add(best);src=best;}
+used.add(best);src=best;}}
 if(b.blast){bulletBlast(b.x,b.y,b.blast);return false;}
 if(b.pierce>0){b.pierce--;b.dmg*=.75;continue;}
 return false;}}
+}
 return true;});
 R.globs=R.globs.filter(s=>{
 const spd=Math.hypot(s.vx,s.vy);
