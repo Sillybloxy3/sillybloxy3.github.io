@@ -1587,6 +1587,162 @@ if(z.low){if(!z.steer)z.steer=Math.random()<.5?1:-1;
 moveEntity(z,-vy/vl*z.steer*z.sp*.7*dt,vx/vl*z.steer*z.sp*.7*dt,z.r);}else z.steer=0;
 const moved=Math.hypot(z.x-px0,z.y-py0);
 z.walk+=moved;
+if(moved<Math.max(.5,dt*z.sp*2.5)){
+z.stuckT=(z.stuckT||0)+dt;
+const chew=R.zoms.filter(o=>!o.dead).length<=5?60:16;
+if(z.stuckT>2){
+const wr=segAt(z.x+dx/d*(z.r+7),z.y+dy/d*(z.r+7))||segAt(z.x+Math.cos(z.ang)*(z.r+7),z.y+Math.sin(z.ang)*(z.r+7));
+if(wr&&wr.hp!==undefined){wr.hp-=chew*dt;
+if(Math.random()<.2)R.parts.push({x:z.x+dx/d*z.r,y:z.y+dy/d*z.r,vx:rnd(-40,40),vy:rnd(-40,40),life:.3,c:'#8a948a',r:2});
+if(Math.random()<.03)SFX.crash();
+if(wr.hp<=0)destroySeg(wr);}
+if(z.stuckT>9){
+let bx2=z.x,by2=z.y,found=false;
+for(let rad=40;rad<420&&!found;rad+=40)for(let aa=0;aa<6.28;aa+=.5){
+const tx=z.x+Math.cos(aa)*rad,ty=z.y+Math.sin(aa)*rad;
+if(tx>40&&ty>40&&tx<R.WW-40&&ty<R.WH-40&&!pointInBlocks(tx,ty)&&!inBuilding(tx,ty)&&d2({x:tx,y:ty},P)>80*80){bx2=tx;by2=ty;found=true;break;}}
+for(let i=0;i<10;i++)R.parts.push({x:z.x,y:z.y,vx:rnd(-80,80),vy:rnd(-80,80),life:.5,c:'#9ab04a',r:3});
+z.x=bx2;z.y=by2;z.stuckT=0;}
+}}else z.stuckT=0;}}
+/* --- bullets --- */
+R.buls=R.buls.filter(b=>{
+const spd=Math.hypot(b.vx,b.vy);
+const steps=Math.min(24,Math.max(1,Math.ceil(spd*dt/4)));
+const sx=b.vx*dt/steps,sy=b.vy*dt/steps;
+b.life-=dt;
+if(b.rocket&&R.quality&&Math.random()<.6)
+R.parts.push({x:b.x,y:b.y,vx:md(-30,30),vy:rnd(-30,30),life:.25,c:pick(['#ffb054','#8a8a80']),r:2});
+for(let st=0;st<steps;st++){
+b.x+=sx;b.y+=sy;
+if(b.life<=0||b.x<0||b.x>R.WW||b.y<0||b.y>R.WH){
+if(b.blast)bulletBlast(b.x,b.y,b.blast);
+return false;}
+for(const h of R.hazards){
+if(h.dead)continue;
+if(d2(b,h)>18*18)continue;
+if(h.type==='barrel'){barrelBoom(h);return false;}
+if(h.type==='crate'){
+h.dead=true;SFX.boom();R.shk=Math.min(R.shk+10,18);
+for(let i=0;i<18;i++){const a=rnd(0,6.28);
+R.parts.push({x:h.x,y:h.y,vx:Math.cos(a)*md(60,300),vy:Math.sin(a)*md(60,300),life:.4,c:'#8a7a4a',r:3});}
+for(const z of R.zoms){
+if(z.dead)continue;
+if(d2(z,h)<95*95)hurtZ(z,30,Math.atan2(z.y-h.y,z.x-h.x),false);
+if(!z.dead)z.stun=Math.max(z.stun,.7);}
+return false;}}
+const wr=segAt(b.x,b.y);
+if(wr){
+if(wr.hp!==undefined){
+if(wr.rein){
+SFX.ping();
+for(let i=0;i<3;i++)R.parts.push({x:b.x,y:b.y,vx:rnd(-160,160)-b.vx*.12,vy:rnd(-160,160)-b.vy*.12,life:.2,c:'#c8d4dc',r:1.6});
+wr.hp-=6;
+if(wr.hp<=0)destroySeg(wr);
+if(b.blast)bulletBlast(b.x,b.y,b.blast);
+return false;}
+for(let i=0;i<3;i++)R.parts.push({x:b.x,y:b.y,vx:rnd(-100,100),vy:rnd(-100,100),life:.15,c:wr.win?'#bfe6f2':'#c8c2a0',r:1.8});
+wr.hp-=wr.win?16:7;
+if(wr.hp<=0)destroySeg(wr);
+if(b.blast)bulletBlast(b.x,b.y,b.blast);
+return false;}
+for(const z of R.zoms){
+if(z.dead)continue;
+const rr=z.r+b.r;
+if(d2(b,z)<rr*rr){
+R.shotH++;
+hurtZ(z,b.dmg,Math.atan2(b.vy,b.vx),b.crit,b);
+if(SET.hitMk)hitMk.t=.12;
+if(b.bang&&!z.dead)R.txts.push({x:z.x,y:z.y-z.r-14,vy:-40,life:.6,txt:'BANG',c:'#f2ead2',s:13});
+if(b.knock&&!z.dead){const ka=Math.atan2(b.vy,b.vx);
+moveEntity(z,Math.cos(ka)*b.knock,Math.sin(ka)*b.knock,z.r);
+z.stun=Math.max(z.stun,.45);
+for(const o of R.zoms){if(o.dead||o===z)continue;
+if(d2(o,z)<70*70){moveEntity(o,Math.cos(ka)*b.knock*.5,Math.sin(ka)*b.knock*.5,o.r);
+o.stun=Math.max(o.stun,.3);}}}
+if(b.nova&&!z.dead)infect(z,b.nova);
+if(b.arc&&!z.dead){
+let src=z;const used=new Set([z]);
+for(let c=0;c<b.arc.n;c++){let best=null,bd=b.arc.r*b.arc.r;
+for(const o of R.zoms){if(o.dead||used.has(o))continue;
+const dd=d2(o,src);if(dd<bd){bd=dd;best=o;}}
+if(!best)break;
+for(let i=0;i<5;i++){const tt=i/4;
+R.parts.push({x:src.x+(best.x-src.x)*tt,y:src.y+(best.y-src.y)*tt,vx:rnd(-30,30),vy:rnd(-30,30),life:.18,c:'#8ad4ff',r:2});}
+hurtZ(best,b.dmg*.6,Math.atan2(best.y-src.y,best.x-src.x),false);
+used.add(best);src=best;}
+if(b.blast){bulletBlast(b.x,b.y,b.blast);return false;}
+if(b.pierce>0){b.pierce--;b.dmg*=.75;continue;}
+return false;}}
+return true;});
+R.globs=R.globs.filter(s=>{
+const spd=Math.hypot(s.vx,s.vy);
+const steps=Math.max(1,Math.min(4,Math.ceil(spd*dt/6)));
+const sx=s.vx*dt/steps,sy=s.vy*dt/steps;
+s.life-=dt;
+for(let st=0;st<steps;st++){
+s.x+=sx;s.y+=sy;
+if(s.life<=0)return false;
+if(pointInBlocks(s.x,s.y))return false;
+const ws=segAt(s.x,s.y);
+if(ws&&ws.win&&ws.hp!==undefined){
+if(ws.rein){SFX.ping();ws.hp-=10;if(ws.hp<=0)destroySeg(ws);return false;}
+for(let i=0;i<3;i++)R.parts.push({x:s.x,y:s.y,vx:rnd(-60,60),vy:rnd(-60,60),life:.2,c:'#bfe6f2',r:2});
+ws.hp-=20;if(ws.hp<=0)destroySeg(ws);
+return false;}
+if(d2(s,R.P)<(s.r+R.P.r)*(s.r+R.P.r)){hurtP(s.dmg);return false;}}
+return true;});
+R.picks=R.picks.filter(p=>{
+p.t+=dt;p.life-=dt;
+if(p.life<=0)return false;
+if(d2(p,R.P)<400){
+SFX.pick();
+if(p.k==='hp'){P.hp=Math.min(P.maxHp,P.hp+25);toast('+HP');}
+else if(p.k==='ar'){P.armor=Math.min(Math.max(1,R.st.armorMax,P.armor),P.armor+20);toast('+PLATE');}
+else{const v=Math.round((p.v||20)*R.st.cashMul*.75);SV.cash+=v;R.cashRun+=v;toast('+$'+v,'gold');}
+updateHUD();return false;}
+return true;});
+R.parts=R.parts.filter(p=>{p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.96;p.vy*=.96;return p.life>0;});
+R.txts=R.txts.filter(t=>{t.life-=dt;t.y+=t.vy*dt;return t.life>0;});
+R.camX=clamp(P.x-W/2,0,Math.max(0,R.WW-W));
+R.camY=clamp(P.y-H/2,0,Math.max(0,R.WH-H));
+MUSIC.hot(R.zoms.length>2);
+hudT+=dt;
+if(hudT>=.1){hudT=0;updateHUD();}}
+function updateBoss(z,dt,dx,dy,d){
+const P=R.P;
+ $('#bossF').style.width=clamp(z.hp/z.mhp*100,0,100)+'%';
+const hpFrac=clamp(z.hp/z.mhp,0,1);
+if(hpFrac<.58&&z.phase===1){z.phase=2;z.sp*=1.2;
+toast(z.boss===175?'PATIENT ZERO ENTERS PHASE TWO':'THE '+BOSSES[z.boss].n+' IS ENRAGED','bad');SFX.roar();
+sub(z.boss===175?'[shriek] it casts off what\u2019s left of its coat':'[roar] the alpha is enraged');}
+z.exposed=Math.max(0,z.exposed-dt);
+if(z.pois>0){z.pois-=dt;z.hp-=6*dt;}
+if(z.novaT>0){z.novaT-=dt;if(z.novaT<=0)novaBurst(z);}
+for(const k in z.cd)z.cd[k]-=dt;
+if(z.stun>0)return;
+let vx=dx/d,vy=dy/d;
+if(d>760){z.rageT=(z.rageT||0)+dt;
+if(z.rageT>4&&!(z.cd.rg>0)){z.rageT=0;z.cd.rg=9;z.rg=3;SFX.roar();sub('[roar] the alpha is done being walked around');}}
+else z.rageT=Math.max(0,z.rageT-dt*2);
+if(z.rg>0)z.rg-=dt;
+const sp=z.sp*(z.phase===2?1.25:1)*(z.rg>0?1.9:1);
+if(z.ab.includes('charge')&&!(z.cd.chg>0)&&d<560){
+z.wind+=dt;
+if(z.wind<.7){vx=0;vy=0;z.chA=Math.atan2(dy,dx);
+if(Math.floor(z.wind*14)%2===0)z.hit=.05;}
+else{z.wind=0;z.cd.chg=rnd(2.4,3);z.chv=.55;z.exposed=2.2;SFX.roar();}}
+else if(z.wind>0&&z.cd.chg>0)z.wind=0;
+if(z.chv>0){z.chv-=dt;vx=Math.cos(z.chA)*3.4;vy=Math.sin(z.chA)*3.4;}
+if(z.ab.includes('orbit')&&d<300&&d>60){vx=(-dy/d)*.8+vx*.4;vy=(dx/d)*.8+vy*.4;}
+if(z.ab.includes('tp')&&!(z.cd.tp>0)&&d<340){z.cd.tp=rnd(4,7);
+for(let i=0;i<14;i++)R.parts.push({x:z.x,y:z.y,vx:rnd(-160,160),vy:rnd(-160,160),life:.3,c:z.c,r:3});
+z.x=clamp(P.x+rnd(-260,260),40,R.WW-40);z.y=clamp(P.y+rnd(-260,260),40,R.WH-40);
+if(segAt(z.x,z.y)){z.x=P.x;z.y=P.y;}
+for(let i=0;i<14;i++)R.parts.push({x:z.x,y:z.y,vx:rnd(-160,160),vy:rnd(-160,160),life:.3,c:z.c,r:3});}
+const px0=z.x,py0=z.y;
+moveEntity(z,vx*sp*dt,vy*sp*dt,z.r*.8);
+const moved=Math.hypot(z.x-px0,z.y-py0);
+z.walk+=moved;
 /* === BOSS TERRAIN DEMOLITION v2 — nothing is cover anymore === */
 const wantMoved=z.sp*dt;
 if(moved<wantMoved*.9){
@@ -1613,6 +1769,7 @@ if(R.gctx){R.gctx.fillStyle='rgba(24,20,14,.6)';
 for(let k=0;k<40;k++)R.gctx.fillRect(seg.x+rnd(-6,seg.w),seg.y+rnd(-6,seg.h),rnd(10,34),rnd(8,26));}
 if(!z.bldT||R.time-z.bldT>4){z.bldT=R.time;toast('THE ALPHA BREACHED A BUILDING','bad');}}
 destroySeg(seg);}}}
+}
 /* ==================== WEAPONS ==================== */
 function shoot(){
 const P=R.P,w=WEAP[P.cur];
